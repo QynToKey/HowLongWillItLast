@@ -87,8 +87,6 @@
 
 Figma：https://www.figma.com/design/NhAgo5n6hLwI984fU2IoiY/How-Long-Will-It-Last?node-id=0-1&t=Sa3mgDYSRhHgcezE-1
 
-📷 スクリーンショット: https://gyazo.com/73aabc30d5c5a73be2f3b7d3dd1cb2d9
-
 ### READMEに記載した機能
 
 - [☑️] 日々の「学習時間」と「学習内容」の記録／編集／削除機能
