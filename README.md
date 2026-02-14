@@ -87,7 +87,7 @@
 
 Figma：https://www.figma.com/design/NhAgo5n6hLwI984fU2IoiY/How-Long-Will-It-Last?node-id=0-1&t=Sa3mgDYSRhHgcezE-1
 
-👉 スクショ: https://gyazo.com/c0c383a838e6317fa0c4f223f9c4edbd
+📷 スクリーンショット: https://gyazo.com/4e4b96b272da5a1257d39a0abd47a5fc
 
 ### READMEに記載した機能
 
