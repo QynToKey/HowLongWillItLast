@@ -141,11 +141,41 @@ Figma：[https://www.figma.com/design/NhAgo5n6hLwI984fU2IoiY/How-Long-Will-It-La
 
 ### テーブル詳細
 
-<!-- #### Aテーブル（例：users）
+#### Aテーブル：users
 
-- name : string / ユーザーの表示名
-- email : string / ログイン用メールアドレス（ユニーク制約）
-- ... -->
+- `name` : string / ユーザーの表示名
+- `email` : string / ログイン用メールアドレス（ユニーク制約）
+- `encrypted_password` : string / パスワード
+- `created_at` : datetime / 作成日時
+- `updated_at` : datetime / 更新日時
+
+#### Bテーブル：learning_themes
+
+- `user_id` : bigint / usersテーブルの外部キー
+- `name` : string / 学習テーマ名（例：英語、Railsなど）
+- `description` : text / 学習テーマの説明など（任意）
+- `created_at` : datetime / 作成日時
+- `updated_at` : datetime / 更新日時
+
+#### Cテーブル：learning_records
+
+- `learning_theme_id` : bigint / learning_themesテーブルの外部キー
+- `study_date` : date / 学習日
+- `duration_minutes` : integer / 学習時間（分単位）
+- `content` : text / 学習内容の記録
+- `started_at` : datetime / 学習開始時間（ストップウォッチ用・任意）
+- `ended_at` : datetime / 学習終了時間（ストップウォッチ用・任意）
+- `created_at` : datetime / 作成日時
+- `updated_at` : datetime / 更新日時
+
+#### Dテーブル：todos
+
+- `learning_theme_id` : bigint / learning_themesテーブルの外部キー
+- `title` : string / Todoのタイトル
+- `description` : text / 内容詳細（任意）
+- `is_completed` : boolean / 完了フラグ（default: false）
+- `created_at` : datetime / 作成日時
+- `updated_at` : datetime / 更新日時
 
 ### ER図の注意点
 
