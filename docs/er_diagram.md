@@ -128,12 +128,14 @@ erDiagram
     USERS {
         bigint id PK
         string email "UNIQUE"
+        datetime created_at
+        datetime updated_at
     }
 
     LEARNING_THEMES {
         bigint id PK
         bigint user_id FK
-        string name
+        string name "UNIQUE (user_id, name)"
         datetime created_at
         datetime updated_at
     }
@@ -145,15 +147,17 @@ erDiagram
         integer duration_minutes
         datetime started_at
         datetime ended_at
+        datetime created_at
+        datetime updated_at
     }
 
     TODOS {
         bigint id PK
         bigint learning_theme_id FK
         string title
-        boolean completed
-        datetime started_at
-        datetime ended_at
+        boolean completed "default: false"
+        datetime created_at
+        datetime updated_at
     }
 
     USERS ||--o{ LEARNING_THEMES : has
