@@ -127,7 +127,9 @@ erDiagram
 
     USERS {
         bigint id PK
+        string name
         string email "UNIQUE"
+        string encrypted_password
         datetime created_at
         datetime updated_at
     }
@@ -136,6 +138,7 @@ erDiagram
         bigint id PK
         bigint user_id FK
         string name "UNIQUE (user_id, name)"
+        text description
         datetime created_at
         datetime updated_at
     }
@@ -143,8 +146,9 @@ erDiagram
     LEARNING_RECORDS {
         bigint id PK
         bigint learning_theme_id FK
-        text content
+        date study_date
         integer duration_minutes
+        text content
         datetime started_at
         datetime ended_at
         datetime created_at
@@ -155,7 +159,8 @@ erDiagram
         bigint id PK
         bigint learning_theme_id FK
         string title
-        boolean completed "default: false"
+        text description
+        boolean is_completed "default: false"
         datetime created_at
         datetime updated_at
     }

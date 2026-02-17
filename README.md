@@ -124,7 +124,9 @@ Figma：[https://www.figma.com/design/NhAgo5n6hLwI984fU2IoiY/How-Long-Will-It-La
 
 ### ER図
 
-<!-- （ER図のスクリーンショットを貼り付けてください） -->
+- スクリーンショット: [https://gyazo.com/b68216f5659ab24088fa5f1272bc0b72](https://gyazo.com/b68216f5659ab24088fa5f1272bc0b72)
+
+- 設計詳細: [docs/er_diagram.md](docs/er_diagram.md)
 
 ### 本サービスの概要（700文字以内）
 
@@ -179,11 +181,11 @@ Figma：[https://www.figma.com/design/NhAgo5n6hLwI984fU2IoiY/How-Long-Will-It-La
 
 ### ER図の注意点
 
-- [ ] 最新のER図スクリーンショットがPRに掲載されているか
-- [ ] テーブル名は複数形になっているか
-- [ ] カラムの型は記載されているか
-- [ ] 外部キーは適切か
-- [ ] リレーションは正しく描かれているか
-- [ ] 多対多の関係になっていないか
-- [ ] STIを使用していないか
-- [ ] postsテーブルに post_name のような命名をしていないか
+- [ ☑️ ] 最新のER図スクリーンショットがPRに掲載されているか
+- [ ☑️ ] テーブル名は複数形になっているか
+- [ ☑️ ] カラムの型は記載されているか
+- [ ☑️ ] 外部キーは適切か
+- [ ☑️ ] リレーションは正しく描かれているか
+- [ ☑️ ] 多対多の関係になっていないか
+- [ ☑️ ] STIを使用していないか
+- [ ☑️ ] postsテーブルに post_name のような命名をしていないか
