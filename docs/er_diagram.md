@@ -128,8 +128,9 @@ erDiagram
     USERS {
         bigint id PK
         string name
-        string email "UNIQUE"
-        string encrypted_password
+        string email "NOT NULL, UNIQUE"
+        string crypted_password "NOT NULL"
+        string salt "NOT NULL"
         datetime created_at
         datetime updated_at
     }
@@ -146,7 +147,7 @@ erDiagram
     LEARNING_RECORDS {
         bigint id PK
         bigint learning_theme_id FK
-        date study_date
+        date study_date "NOT NULL"
         integer duration_minutes
         text content
         datetime started_at

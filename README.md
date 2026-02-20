@@ -88,6 +88,7 @@
 
 - フレームワーク: Ruby on Rails 7.x
 - データベース: PostgreSQL
+- 認証: sorcery (core のみ)
 - デプロイ先: Render
 - （その他未定: 実装しながら検討）
 
@@ -146,8 +147,9 @@ Figma：[https://www.figma.com/design/NhAgo5n6hLwI984fU2IoiY/How-Long-Will-It-La
 #### Aテーブル：users
 
 - `name` : string / ユーザーの表示名
-- `email` : string / ログイン用メールアドレス（ユニーク制約）
-- `encrypted_password` : string / パスワード
+- `email` : string / ログイン用メールアドレス（NOT NULL, UNIQUE）
+- `crypted_password` : string / sorceryによる暗号化パスワード（NOT NULL）
+- `salt` : string / パスワード暗号化用ソルト（NOT NULL）
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
 
@@ -162,7 +164,7 @@ Figma：[https://www.figma.com/design/NhAgo5n6hLwI984fU2IoiY/How-Long-Will-It-La
 #### Cテーブル：learning_records
 
 - `learning_theme_id` : bigint / learning_themesテーブルの外部キー
-- `study_date` : date / 学習日
+- `study_date` : date / 学習日（NOT NULL）
 - `duration_minutes` : integer / 学習時間（分単位）
 - `content` : text / 学習内容の記録
 - `started_at` : datetime / 学習開始時間（ストップウォッチ用・任意）
