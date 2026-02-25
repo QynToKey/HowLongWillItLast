@@ -9,3 +9,5 @@ RUN apt-get update -qq && \
 WORKDIR /how_long_will_it_last
 
 COPY . /how_long_will_it_last
+
+RUN bundle install
