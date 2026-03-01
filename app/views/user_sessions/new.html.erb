@@ -3,7 +3,7 @@
 <%= form_with url: login_path, local: true do |f| %>
   <div>
     <%= label_tag :email %>
-    <%= text_field_tag :email, nil, autocomplete: "current-password" %>
+    <%= text_field_tag :email, nil, autocomplete: "email" %>
   </div>
 
   <div>
