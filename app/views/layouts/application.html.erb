@@ -3,7 +3,9 @@
   <head>
     <title><%= content_for(:title) || "How Long Will It Last" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- <meta name="apple-mobile-web-app-capable" content="yes"> -->
+    <!-- PWA関連のメタタグ警告を解消するために上記の行を修正 -->
+    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -18,6 +20,20 @@
   </head>
 
   <body>
+  <% flash.each do |type, message| %>
+    <div class="flash <%= type %>">
+      <%= message %>
+    </div>
+  <% end %>
+
+  <% if logged_in? %>
+    <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
+  <% else %>
+    <%= link_to "ログイン", login_path %>
+    <%= link_to "新規登録", new_user_path %>
+  <% end %>
+
     <%= yield %>
   </body>
+
 </html>
