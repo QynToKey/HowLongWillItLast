@@ -82,7 +82,4 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: how_long_will_it_last_production
-  username: how_long_will_it_last
-  password: <%= ENV["HOW_LONG_WILL_IT_LAST_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
