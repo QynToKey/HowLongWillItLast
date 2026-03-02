@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get "user_sessions/new"
   get "home/index"
   root "home#index"
 
