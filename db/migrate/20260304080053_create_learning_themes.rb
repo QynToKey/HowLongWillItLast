@@ -8,6 +8,6 @@ class CreateLearningThemes < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :learning_themes, [:user_id, :name], unique: true
+    add_index :learning_themes, [ :user_id, :name ], unique: true
   end
 end
