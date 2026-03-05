@@ -1,2 +1,16 @@
-<h1>LearningThemes#index</h1>
-<p>Find me in app/views/learning_themes/index.html.erb</p>
+<h1>学習テーマ</h1>
+
+<%= link_to "新しいテーマ", new_learning_theme_path %>
+
+<ul>
+  <% @learning_themes.each do |theme| %>
+    <li>
+      <strong><%= theme.name %></strong>
+      <p><%= theme.description %></p>
+
+      <%= link_to "編集", edit_learning_theme_path(theme) %>
+      <%= link_to "削除", learning_theme_path(theme),
+            data: { turbo_method: :delete, turbo_confirm: "削除しますか？" } %>
+    </li>
+  <% end %>
+</ul>

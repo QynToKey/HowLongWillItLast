@@ -1,2 +1,5 @@
-<h1>LearningThemes#edit</h1>
-<p>Find me in app/views/learning_themes/edit.html.erb</p>
+<h1>学習テーマを編集</h1>
+
+<%= render "form", learning_theme: @learning_theme %>
+
+<%= link_to "戻る", learning_themes_path %>
