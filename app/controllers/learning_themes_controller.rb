@@ -1,5 +1,6 @@
 class LearningThemesController < ApplicationController
   before_action :require_login # current_user = nil を許可しない
+  before_action :set_learning_theme, only: %i[edit update destroy]
 
   def new
   end
@@ -30,5 +31,9 @@ class LearningThemesController < ApplicationController
   private
   def learning_theme_params
     params.require(:learning_theme).permit(:name, :description)
+  end
+
+  def set_learning_theme
+    @learning_theme = current_user.learning_themes.find(params[:id])
   end
 end
