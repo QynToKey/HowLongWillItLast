@@ -3,6 +3,7 @@ class LearningThemesController < ApplicationController
   before_action :set_learning_theme, only: %i[edit update destroy]
 
   def new
+    @learning_theme = current_user.learning_themes.build
   end
 
   def create
