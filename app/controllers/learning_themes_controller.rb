@@ -23,4 +23,9 @@ class LearningThemesController < ApplicationController
 
   def destroy
   end
+
+  private
+  def learning_theme_params
+    params.require(:learning_theme).permit(:name, :description)
+  end
 end
