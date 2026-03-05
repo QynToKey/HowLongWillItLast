@@ -1,4 +1,6 @@
 class LearningThemesController < ApplicationController
+  before_action :require_login # current_user = nil を許可しない
+
   def new
   end
 
