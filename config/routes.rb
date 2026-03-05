@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get "learning_themes/new"
+  get "learning_themes/create"
+  get "learning_themes/index"
+  get "learning_themes/edit"
+  get "learning_themes/update"
+  get "learning_themes/destroy"
   get "home/index"
   root "home#index"
 
