@@ -15,6 +15,7 @@ class LearningThemesController < ApplicationController
   end
 
   def index
+    @learning_themes = current_user.learning_themes.order(created_at: :desc)
   end
 
   def edit
