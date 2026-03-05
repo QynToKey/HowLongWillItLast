@@ -1,5 +1,5 @@
 class LearningThemesController < ApplicationController
-  before_action :require_login # current_user = nil を許可しない
+  before_action :require_login
   before_action :set_learning_theme, only: %i[edit update destroy]
 
   def new
@@ -23,9 +23,16 @@ class LearningThemesController < ApplicationController
   end
 
   def update
+    if @learning_theme.update(learning_theme_params)
+      redirect_to learning_themes_path, notice: "テーマを更新しました"
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
+    @learning_theme.destroy
+    redirect_to learning_themes_path, notice: "テーマを削除しました"
   end
 
   private
