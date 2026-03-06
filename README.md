@@ -133,17 +133,9 @@
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
 
-#### Bテーブル：learning_themes
+#### Bテーブル：learning_records
 
 - `user_id` : bigint / usersテーブルの外部キー
-- `name` : string / 学習テーマ名（例：英語、Railsなど）
-- `description` : text / 学習テーマの説明など（任意）
-- `created_at` : datetime / 作成日時
-- `updated_at` : datetime / 更新日時
-
-#### Cテーブル：learning_records
-
-- `learning_theme_id` : bigint / learning_themesテーブルの外部キー
 - `study_date` : date / 学習日（NOT NULL）
 - `duration_minutes` : integer / 学習時間（分単位）
 - `content` : text / 学習内容の記録
@@ -152,14 +144,35 @@
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
 
+#### Cテーブル：tags
+
+- `user_id` : bigint / usersテーブルの外部キー
+- `name` : string / タグ名（例：英語、Rails、哲学など・任意）
+- `created_at` : datetime / 作成日時
+- `updated_at` : datetime / 更新日時
+
 #### Dテーブル：todos
 
-- `learning_theme_id` : bigint / learning_themesテーブルの外部キー
+- `user_id` : bigint / usersテーブルの外部キー
 - `title` : string / Todoのタイトル
 - `description` : text / 内容詳細（任意）
 - `is_completed` : boolean / 完了フラグ（default: false）
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
+
+#### Eテーブル：record_tags
+
+※ learning_records と tags の多対多関係を管理する中間テーブル
+
+- `record_id` : bigint / learning_recordsテーブルの外部キー
+- `tag_id` : bigint / tagsテーブルの外部キー
+
+#### Fテーブル：todo_tags
+
+※ todos と tags の多対多関係を管理する中間テーブル
+
+- `todo_id` : bigint / todosテーブルの外部キー
+- `tag_id` : bigint / tagsテーブルの外部キー
 
 ---
 
