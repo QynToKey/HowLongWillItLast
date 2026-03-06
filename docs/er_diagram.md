@@ -3,8 +3,8 @@
 ## 1️⃣ エンティティ一覧
 
 - users
-- learning_themes
 - learning_records
+- tags
 - todos
 
 ---
@@ -16,39 +16,36 @@
 - アプリ利用者
 - 認証情報を持つ
 
-### learning_themes
-
-- ユーザーが設定する学習テーマ
-- 1ユーザーに属する
-
 ### learning_records
 
 - 日々の学習記録
-- 1テーマに属する
+
+### tags
+
+- ユーザーが設定するタグ
 
 ### todos
 
 - テーマ単位のタスク
-- 1テーマに属する
 
 ---
 
 ## 3️⃣ リレーション整理
 
-- `user` は 0以上の `learning_themes`を持つ
-- `learning_theme` は 0以上の `learning_records` を持つ
-- `learning_theme` は 0以上の `todos` を持つ
-- 多対多関係は存在しない
+- `user` は 0以上の `learning_records`を持つ
+- `user` は 0以上の `tags` を持つ
+- `user` は 0以上の `todos` を持つ
+- `learning_records` と `tags` は多対多関係
+- `todos` と `tags` も多対多関係
+- 多対多関係は、それぞれ `record_tags`, `todo_tags` で管理する
 
 ---
 
 ## 4️⃣ 設計判断メモ
 
-- `learning_records`に `user_id` は持たせない
-  - `learning_theme` を経由して `user` に帰属するため
-  - 冗長性 および 整合性リスク を回避する
+- TOP ページから「今日の記録」ヘダイレクトに飛ぶくらいのシンプルな構成が望ましい。
 
-  👉 *ユーザーが `learning_theme` を削除した場合、そこに紐づいた一連の長期記録も消えるが、その判断をユーザーに委ねることが本アプリの設計思想の根幹である「内省」を促すと考えた*
+- アプリによって記録するデータは「今日の記録」を主軸に構成し、ユーザーの記録スタイルの多様を担保するために `Tags` を自由度高く使えるように実装したい。
 
 ---
 
@@ -60,9 +57,7 @@
   - `users.email` は NOT NULL
 
 - 学習内容の記録について
-  - `learning_themes.user_id`は NOT NULL
-  - `learning_records.learning_theme_id` は NOT NULL
-  - `todos.learning_theme_id` は NOT NULL
+  - `learning_records.user_id`は NOT NULL
   - `learning_records.content` は NOT NULL
 
 - 記録オプションについて
@@ -80,43 +75,25 @@
 ### **UNIQUE** 制約
 
 - `users.email` は UNIQUE
-- `learning_themes.name` は *`user_id` + `name`* において UNIQUE
+- `tags.name` は、 `user_id` + `name` で UNIQUE
+- `record_tags` は、`(record_id, tag_id)` で UNIQUE
+- `todo_tags` は `(todo_id, tag_id)` で UNIQUE
 
-### **外部キー** 制約
+### 正規化について
 
-- `learning_themes.user_id` → `users.id`
-- `learning_records.learning_theme_id` → `learning_themes.id`
-- `todos.learning_theme_id`→ `learning_themes.id`
+本設計は第3正規形（3NF）を満たすことを意識している。
 
-  削除ポリシー:
+- 第1正規形
+  繰り返し属性を排除するため、`learning_records` と `tags` の多対多関係を
+  中間テーブル `record_tags` に分離した。
 
-  - `learning_theme` 削除時に `learning_records` / `todos` は削除される
+- 第2正規形
+  すべてのテーブルは単一主キー (`id`) を持つため、
+  非キー属性は主キーに完全関数従属する。
 
-    - Rails: `dependent: :destroy`
-    - DB: `ON DELETE CASCADE`
-
-### 依存関係
-
-- 重複データについて
-
-  ```bash
-  #データ構造
-    users
-      └ learning_themes
-          ├ learning_records
-          └ todos
-  ```
-
-  👉 *不必要な冗長性は排除できている*
-
-- 推移的依存について
-
-  ```bash
-  # テーブルの依存関係
-    `learning_record` → `learning_theme` → `user`
-  ```
-
-  👉 *`learning_records` に `user_id` を持たせていないため、第3正規形を満たしている (あるキー属性が別の非キー属性に依存してない)*
+- 第3正規形
+  非キー属性が他の非キー属性に依存する推移的依存を排除している。
+  例えば、`tags` や `users` の情報を `learning_records` に重複保持していない。
 
 ---
 
@@ -135,38 +112,54 @@ erDiagram
         datetime updated_at
     }
 
-    LEARNING_THEMES {
-        bigint id PK
-        bigint user_id FK
-        string name "UNIQUE (user_id, name)"
-        text description
-        datetime created_at
-        datetime updated_at
-    }
-
     LEARNING_RECORDS {
         bigint id PK
-        bigint learning_theme_id FK
+        bigint user_id FK
         date study_date "NOT NULL"
         integer duration_minutes
-        text content
+        text content "NOT NULL"
         datetime started_at
         datetime ended_at
         datetime created_at
         datetime updated_at
     }
 
-    TODOS {
+    TAGS {
         bigint id PK
-        bigint learning_theme_id FK
-        string title
-        text description
-        boolean is_completed "default: false"
+        bigint user_id FK
+        string name "UNIQUE (user_id, name)"
         datetime created_at
         datetime updated_at
     }
 
-    USERS ||--o{ LEARNING_THEMES : has
-    LEARNING_THEMES ||--o{ LEARNING_RECORDS : has
-    LEARNING_THEMES ||--o{ TODOS : has
+    TODOS {
+        bigint id PK
+        bigint user_id FK
+        bigint tag_id FK
+        string title
+        text description
+        boolean is_completed "NOT NULL, default: false"
+        datetime created_at
+        datetime updated_at
+    }
+
+    RECORD_TAGS {
+        bigint record_id FK
+        bigint tag_id FK "UNIQUE (record_id, tag_id)"
+    }
+
+    TODO_TAGS {
+      bigint todo_id FK
+      bigint tag_id FK "UNIQUE (todo_id, tag_id)"
+    }
+
+    USERS ||--o{ LEARNING_RECORDS : has
+    USERS ||--o{ TAGS : has
+    USERS ||--o{ TODOS : has
+
+    LEARNING_RECORDS ||--o{ RECORD_TAGS : has
+    TAGS ||--o{ RECORD_TAGS : has
+
+    TODOS ||--o{ TODO_TAGS : has
+    TAGS ||--o{ TODO_TAGS : has
 ```
