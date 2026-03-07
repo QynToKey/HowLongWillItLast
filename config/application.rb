@@ -23,5 +23,10 @@ module HowLongWillItLast
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # generator 設定
+    config.generators do |g|
+      g.test_framework nil # テストファイルをつくらない
+    end
   end
 end
