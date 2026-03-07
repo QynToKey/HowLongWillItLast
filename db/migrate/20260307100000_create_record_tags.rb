@@ -7,6 +7,6 @@ class CreateRecordTags < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :record_tags, [:learning_record_id, :tag_id], unique: true
+    add_index :record_tags, [ :learning_record_id, :tag_id ], unique: true
   end
 end
