@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  learning_record: one
+  tag: one
+
+two:
+  learning_record: two
+  tag: two
