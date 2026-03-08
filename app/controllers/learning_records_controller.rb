@@ -3,7 +3,7 @@ class LearningRecordsController < ApplicationController
 
   def index
   end
-  
+
   def new
     # デフォルトで今日の日付をセットする
     @learning_record = LearningRecord.new(study_date: Date.today)
@@ -18,6 +18,10 @@ class LearningRecordsController < ApplicationController
       flash.now[:alert] = "学習記録の保存に失敗しました"
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @learning_record = current_user.learning_records.find(params[:id])
   end
 
   private
