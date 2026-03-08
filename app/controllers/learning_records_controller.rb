@@ -13,7 +13,7 @@ class LearningRecordsController < ApplicationController
     @learning_record = current_user.learning_records.build(learning_record_params)
 
     if @learning_record.save
-      redirect_to learning_records_path, notice: "学習記録を保存しました"
+      redirect_to @learning_record, notice: "学習記録を保存しました"
     else
       flash.now[:alert] = "学習記録の保存に失敗しました"
       render :new, status: :unprocessable_entity
