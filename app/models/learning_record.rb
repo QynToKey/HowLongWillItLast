@@ -10,8 +10,6 @@ class LearningRecord < ApplicationRecord
   validates :study_date, presence: true
   validates :content, presence: true
   validates :duration_minutes, allow_nil: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :started_at, allow_nil: true
-  validates :ended_at, allow_nil: true
   # 開始時間と終了時間の両方が存在する場合、終了時間は開始時間より後でなければならない
   validate :ended_at_after_started_at
 
