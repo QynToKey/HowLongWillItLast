@@ -1,1 +1,6 @@
-<h1>xxxx/xx/xx の学習記録</h1>
+<h1><%= @learning_record.study_date.strftime('%Y/%m/%d') %> の学習記録</h1>
+
+<p>学習内容: <%= @learning_record.content %></p>
+<p>学習時間: <%= @learning_record.duration_minutes %> 分</p>
+
+<%= link_to '編集', edit_learning_record_path(@learning_record) %>
