@@ -2,6 +2,7 @@ class LearningRecordsController < ApplicationController
   skip_before_action :require_login, only: %i[index new]
 
   def index
+    @learning_records = current_user.learning_records.order(study_date: :desc)
   end
 
   def new
