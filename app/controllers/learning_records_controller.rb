@@ -43,6 +43,12 @@ class LearningRecordsController < ApplicationController
     end
   end
 
+  def destroy
+    @learning_record = current_user.learning_records.find(params[:id])
+    @learning_record.destroy
+    redirect_to learning_records_path, notice: "学習記録を削除しました"
+  end
+
   private
 
   def learning_record_params
