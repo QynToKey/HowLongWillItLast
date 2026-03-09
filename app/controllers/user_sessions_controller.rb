@@ -8,7 +8,7 @@ class UserSessionsController < ApplicationController
     @user = login(params[:email], params[:password])
 
     if @user
-      redirect_to learning_themes_path, notice: "ログインしました"
+      redirect_to learning_records_path, notice: "ログインしました"
     else
       flash.now[:alert] = "メールアドレスまたはパスワードが違います"
       render :new, status: :unprocessable_entity
