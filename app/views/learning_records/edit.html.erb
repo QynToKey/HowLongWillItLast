@@ -11,24 +11,4 @@
   </div>
 <% end %>
 
-<%= form_with model: @learning_record do |f| %>
-  <div>
-    <%= f.label :content, "学習内容" %><br>
-    <%= f.text_area :content, rows: 4 %>
-  </div>
-
-  <div>
-    <%= f.label :duration_minutes, "学習時間（分）" %><br>
-    <%= f.number_field :duration_minutes, min: 0 %>
-  </div>
-
-  <div>
-    <%= f.label :study_date, "日付" %><br>
-    <%= f.date_field :study_date %>
-  </div>
-
-  <div>
-    <%= f.submit "更新する" %>
-    <%= link_to 'キャンセル', learning_record_path(@learning_record) %>
-  </div>
-<% end %>
+<%= render 'form', learning_record: @learning_record, return_path: learning_record_path(@learning_record) %>
