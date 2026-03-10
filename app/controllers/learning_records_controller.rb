@@ -1,6 +1,5 @@
 class LearningRecordsController < ApplicationController
-  skip_before_action :require_login, only: %i[index new]
-  # コールバックで各アクションの実行前にメソッドを挿入
+  skip_before_action :require_login, only: %i[new]
   before_action :set_learning_record, only: %i[show edit update destroy]
 
   def index
@@ -51,7 +50,6 @@ class LearningRecordsController < ApplicationController
   end
 
   def set_learning_record
-    # ユーザーが所有する学習記録を取得する
+    #ユーザーが所有する学習記録のみを検索する
     @learning_record = current_user.learning_records.find(params[:id])
   end
-end
