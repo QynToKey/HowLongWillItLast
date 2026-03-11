@@ -1,5 +1,7 @@
 class LearningRecordsController < ApplicationController
   skip_before_action :require_login, only: %i[index new]
+  # コールバックで各アクションの実行前にメソッドを挿入
+  before_action :set_learning_record, only: %i[show edit update destroy]
 
   def index
     @learning_records = current_user.learning_records.order(study_date: :desc)
@@ -23,18 +25,12 @@ class LearningRecordsController < ApplicationController
   end
 
   def show
-    # ユーザーが所有する学習記録のみを表示できるようにする
-    @learning_record = current_user.learning_records.find(params[:id])
   end
 
   def edit
-    # ユーザーが所有する学習記録のみを編集できるようにする
-    @learning_record = current_user.learning_records.find(params[:id])
   end
 
   def update
-    @learning_record = current_user.learning_records.find(params[:id])
-
     if @learning_record.update(learning_record_params)
       redirect_to @learning_record, notice: "学習記録を更新しました"
     else
@@ -44,7 +40,6 @@ class LearningRecordsController < ApplicationController
   end
 
   def destroy
-    @learning_record = current_user.learning_records.find(params[:id])
     @learning_record.destroy
     redirect_to learning_records_path, notice: "学習記録を削除しました"
   end
@@ -53,5 +48,10 @@ class LearningRecordsController < ApplicationController
 
   def learning_record_params
     params.require(:learning_record).permit(:study_date, :content, :duration_minutes, :started_at, :ended_at, tag_ids: [])
+  end
+
+  def set_learning_record
+    # ユーザーが所有する学習記録を取得する
+    @learning_record = current_user.learning_records.find(params[:id])
   end
 end
