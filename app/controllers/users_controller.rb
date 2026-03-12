@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: [ :new, :create ]
+  before_action :set_user, only: %i[edit update destroy]
 
   def new
     @user = User.new
@@ -9,15 +10,36 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to root_path, notice: "登録が完了しました"
+      redirect_to new_learning_record_path, notice: "登録が完了しました"
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def edit
+  end
+
+  def update
+    if @user.update(user_params)
+      redirect_to root_path, notice: "ユーザー情報を更新しました"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @user.destroy
+    logout
+    redirect_to root_path, notice: "ユーザーを削除しました"
   end
 
   private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def set_user
+    @user = current_user
   end
 end

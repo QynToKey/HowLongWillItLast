@@ -102,7 +102,7 @@
 - フレームワーク: Ruby on Rails 7.x
 - データベース: PostgreSQL
 - 認証: sorcery (core のみ)
-- デプロイ先: Render
+- デプロイ先: Render / Neon
 - （その他未定: 実装しながら検討）
 
 ---
