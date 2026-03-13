@@ -3,7 +3,8 @@ class LearningRecordsController < ApplicationController
   before_action :set_learning_record, only: %i[show edit update destroy]
 
   def index
-    @learning_records = current_user.learning_records.order(study_date: :desc)
+    # ユーザーが所有する学習記録をタグ情報とともに取得し、学習日が新しい順に並べる
+    @learning_records = current_user.learning_records.includes(:tags).order(study_date: :desc)
   end
 
   def new
