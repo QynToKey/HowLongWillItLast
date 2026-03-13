@@ -11,16 +11,4 @@
   </div>
 <% end %>
 
-<div>
-  <%= form_with model: @tag do |f| %>
-    <div>
-      <%= f.label :name, "タグ名" %><br>
-      <%= f.text_field :name %>
-    </div>
-
-    <div>
-      <%= f.submit "作成する" %>
-      <%= link_to "戻る", tags_path %>
-    </div>
-  <% end %>
-</div>
+<%= render 'form', tag: @tag, return_path: tags_path %>
