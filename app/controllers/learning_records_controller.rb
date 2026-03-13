@@ -5,6 +5,11 @@ class LearningRecordsController < ApplicationController
   def index
     # ユーザーが所有する学習記録をタグ情報とともに取得し、学習日が新しい順に並べる
     @learning_records = current_user.learning_records.includes(:tags).order(study_date: :desc)
+
+    if params[:tag_id].present?
+      # タグIDが指定されている場合は、そのタグが付いている学習記録のみを表示する
+      @learning_records = @learning_records.joins(:tags).where(tags: { id: params[:tag_id] })
+    end
   end
 
   def new
