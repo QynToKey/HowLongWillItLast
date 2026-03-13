@@ -33,5 +33,6 @@
 
 <%# タグで絞り込んでいる場合は全件表示へのリンクを表示する %>
 <% if params[:tag_id].present? %>
+  <p>このタグのついた学習ログの累計: <%= (current_user.total_learning_minutes_by_tag(Tag.find(params[:tag_id])) / 60.0).round(1) %> 時間</p>
   <%= link_to "全件表示へ戻る", learning_records_path %>
 <% end %>
