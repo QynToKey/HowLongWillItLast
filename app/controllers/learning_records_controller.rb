@@ -7,8 +7,10 @@ class LearningRecordsController < ApplicationController
     @learning_records = current_user.learning_records.includes(:tags).order(study_date: :desc)
 
     if params[:tag_id].present?
+      # ユーザーが所有するタグの中から、指定されたタグIDに該当するタグを見つける
+      @current_tag = current_user.tags.find(params[:tag_id])
       # タグIDが指定されている場合は、そのタグが付いている学習記録のみを表示する
-      @learning_records = @learning_records.joins(:tags).where(tags: { id: params[:tag_id] })
+      @learning_records = @learning_records.joins(:tags).where(tags: { id: @current_tag.id })
     end
   end
 
