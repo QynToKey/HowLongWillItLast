@@ -17,6 +17,11 @@
         <td><%= record.content %></td>
         <td><%= record.duration_minutes %></td>
         <td>
+          <% record.tags.each do |tag| %>
+            <span><%= tag.name %></span>
+          <% end %>
+        </td>
+        <td>
           <%= link_to '編集', edit_learning_record_path(record) %>
           <%= link_to '削除', learning_record_path(record), data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
         </td>
