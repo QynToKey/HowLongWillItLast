@@ -58,7 +58,7 @@ class LearningRecordsController < ApplicationController
   end
 
   def set_learning_record
-    #ユーザーが所有する学習記録のみを検索する
+    # ユーザーが所有する学習記録のみを検索する
     @learning_record = current_user.learning_records.find(params[:id])
   end
 end
