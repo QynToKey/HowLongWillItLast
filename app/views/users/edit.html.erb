@@ -36,7 +36,7 @@
     <%= f.submit "更新" %>
   </div>
 
-    <%= button_to "学習ログへ戻る",  learning_records_path, method: :get %>
     <%= button_to "削除", user_path(@user), method: :delete,
     data: { turbo_confirm: "本当に削除しますか？" } %>
+    <%= link_to "学習ログへ戻る", learning_records_path, method: :get %>
 <% end %>

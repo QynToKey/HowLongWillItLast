@@ -1,0 +1,14 @@
+<h1>タグの作成</h1>
+
+<% if @tag.errors.any? %>
+  <div style="color: red;">
+    <h2><%= @tag.errors.count %>件のエラーがあります</h2>
+    <ul>
+      <% @tag.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= render 'form', tag: @tag, return_path: tags_path %>

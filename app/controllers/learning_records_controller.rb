@@ -1,10 +1,17 @@
 class LearningRecordsController < ApplicationController
-  skip_before_action :require_login, only: %i[index new]
-  # コールバックで各アクションの実行前にメソッドを挿入
+  skip_before_action :require_login, only: %i[new]
   before_action :set_learning_record, only: %i[show edit update destroy]
 
   def index
-    @learning_records = current_user.learning_records.order(study_date: :desc)
+    # ユーザーが所有する学習記録をタグ情報とともに取得し、学習日が新しい順に並べる
+    @learning_records = current_user.learning_records.includes(:tags).order(study_date: :desc)
+
+    if params[:tag_id].present?
+      # ユーザーが所有するタグの中から、指定されたタグIDに該当するタグを見つける
+      @current_tag = current_user.tags.find(params[:tag_id])
+      # タグIDが指定されている場合は、そのタグが付いている学習記録のみを表示する
+      @learning_records = @learning_records.joins(:tags).where(tags: { id: @current_tag.id })
+    end
   end
 
   def new
@@ -51,7 +58,7 @@ class LearningRecordsController < ApplicationController
   end
 
   def set_learning_record
-    # ユーザーが所有する学習記録を取得する
+    # ユーザーが所有する学習記録のみを検索する
     @learning_record = current_user.learning_records.find(params[:id])
   end
 end

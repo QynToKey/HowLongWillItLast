@@ -16,4 +16,9 @@ class User < ApplicationRecord
             if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true,
             if: -> { new_record? || changes[:crypted_password] }
+
+  # 指定したタグが付いている学習時間の合計を計算する
+  def total_learning_minutes_by_tag(tag)
+    learning_records.joins(:tags).where(tags: { id: tag.id }).sum(:duration_minutes)
+  end
 end
