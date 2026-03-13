@@ -1,0 +1,26 @@
+<h1>タグの作成</h1>
+
+<% if @tag.errors.any? %>
+  <div style="color: red;">
+    <h2><%= @tag.errors.count %>件のエラーがあります</h2>
+    <ul>
+      <% @tag.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div>
+  <%= form_with model: @tag do |f| %>
+    <div>
+      <%= f.label :name, "タグ名" %><br>
+      <%= f.text_field :name %>
+    </div>
+
+    <div>
+      <%= f.submit "作成する" %>
+      <%= link_to "戻る", tags_path %>
+    </div>
+  <% end %>
+</div>
