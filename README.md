@@ -140,8 +140,6 @@
 - `study_date` : date / 学習日（NOT NULL）
 - `duration_minutes` : integer / 学習時間（分単位）
 - `content` : text / 学習内容の記録
-- `started_at` : datetime / 学習開始時間（ストップウォッチ用・任意）
-- `ended_at` : datetime / 学習終了時間（ストップウォッチ用・任意）
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
 
