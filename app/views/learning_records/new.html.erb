@@ -1,5 +1,7 @@
 <h1>今日の学習記録</h1>
 
+<%= render 'stopwatch' %>
+
 <% if @learning_record.errors.any? %>
   <div style="color: red;">
     <h2><%= @learning_record.errors.count %>件のエラーがあります</h2>
