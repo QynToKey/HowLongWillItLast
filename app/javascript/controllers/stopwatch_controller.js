@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   // DOM要素を取得するためのターゲットを定義
-  static targets = ["timer", "start", "stop", "reset"]
+  static targets = ["timer", "start", "stop", "reset", "durationMinutes"]
 
   // ストップウォッチの状態を管理するためのプロパティを定義
   startTime = undefined
@@ -35,6 +35,7 @@ export default class extends Controller {
 
     clearTimeout(this.timeoutId); // タイマーの更新を停止
     this.elapsedTime = Date.now() - this.startTime; // 経過時間を保存
+    this.durationMinutesTarget.value = Math.floor(this.elapsedTime / 60000); // 経過時間を分単位でフォームにセット
     this.startTime = undefined; // 開始時間をリセット
     this.setButtonStateStopped(); // ボタンの状態を更新
   }

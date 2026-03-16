@@ -6,7 +6,7 @@
 
   <div>
     <%= f.label :duration_minutes, "学習時間（分）" %><br>
-    <%= f.number_field :duration_minutes, min: 0 %>
+    <%= f.number_field :duration_minutes, min: 0, data: { stopwatch_target: "durationMinutes" } %>
   </div>
 
   <div>
