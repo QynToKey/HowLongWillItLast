@@ -6,7 +6,7 @@
 
   <div>
     <%= f.label :duration_minutes, "学習時間（分）" %><br>
-    <%= f.number_field :duration_minutes, min: 0 %>
+    <%= f.number_field :duration_minutes, min: 0, data: { stopwatch_target: "durationMinutes" } %>
   </div>
 
   <div>
@@ -16,10 +16,14 @@
 
   <div>
     <%= f.label :tag_ids, "タグ" %><br>
-    <% current_user.tags.each do |tag| %>
-      <%# タグがすでに付いていればチェック済みで表示し、チェックされたらそのIDを送信する %>
-      <%= f.check_box :tag_ids, { multiple: true, checked: learning_record.tags.include?(tag) }, tag.id, false %>
-      <%= tag.name %>
+    <% if current_user.tags.empty? %>
+      <p>※ タグを先に<%= link_to 'タグ管理画面', tags_path %>から追加してください。</p>
+    <% else %>
+      <% current_user.tags.each do |tag| %>
+        <%# タグがすでに付いていればチェック済みで表示し、チェックされたらそのIDを送信する %>
+        <%= f.check_box :tag_ids, { multiple: true, checked: learning_record.tags.include?(tag) }, tag.id, false %>
+        <%= tag.name %>
+      <% end %>
     <% end %>
   </div>
 

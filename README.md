@@ -88,6 +88,7 @@
   - 「タグ」によるフィルタリング表示（一覧／累計時間）
 
 - MVPリリース後に実装を予定する機能
+  - ストップウォッチに「一時停止」機能を追加
   - 「Todoリスト」の作成／編集／削除機能
   - カレンダー機能（過去ログや一覧表示のための検索機能として）
   - キーワードによる検索機能
@@ -140,8 +141,6 @@
 - `study_date` : date / 学習日（NOT NULL）
 - `duration_minutes` : integer / 学習時間（分単位）
 - `content` : text / 学習内容の記録
-- `started_at` : datetime / 学習開始時間（ストップウォッチ用・任意）
-- `ended_at` : datetime / 学習終了時間（ストップウォッチ用・任意）
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
 

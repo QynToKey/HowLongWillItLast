@@ -62,14 +62,11 @@
 
 - 記録オプションについて
   - `learning_records.duration_minutes` は NULL 許可
-  - `learning_records.started_at` は NULL 許可
-  - `learning_records.ended_at` は NULL 許可
 
   設計方針:
 
   - `learning_records.duration_minutes` については本アプリの主たる機能に関するが、ユーザー判断で使わないことを敢えて許容したい
-  - 「手入力」での記録を許容するため、`started_at` と `ended_at` は NULL を許可するが、「ストップウォッチ」使用時は両カラムセットで保存する
-  - `duration_minutes` は集計効率のため保存する
+  - 「手入力」での記録を許容するため `duration_minutes` は NULL を許可するが、「ストップウォッチ」使用時は `duration_minutes` によって集計する
   - 各カラムの整合性はアプリケーションレイヤーで担保する
 
 ### **UNIQUE** 制約
@@ -118,8 +115,6 @@ erDiagram
         date study_date "NOT NULL"
         integer duration_minutes
         text content "NOT NULL"
-        datetime started_at
-        datetime ended_at
         datetime created_at
         datetime updated_at
     }
