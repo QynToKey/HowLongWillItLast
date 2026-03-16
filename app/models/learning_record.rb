@@ -7,5 +7,4 @@ class LearningRecord < ApplicationRecord
   validates :study_date, presence: true
   validates :content, presence: true
   validates :duration_minutes, allow_nil: true, numericality: { only_integer: true, greater_than: 0 }
-
 end
