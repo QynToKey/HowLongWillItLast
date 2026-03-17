@@ -1,14 +1,16 @@
-<h1><%= @learning_record.study_date.strftime('%Y/%m/%d') %> の学習記録</h1>
+<div class="container mt-5">
+  <h1 class="h4"><%= @learning_record.study_date.strftime('%Y/%m/%d') %> の学習記録</h1>
 
-<% if @learning_record.errors.any? %>
-  <div style="color: red;">
-    <h2><%= @learning_record.errors.count %>件のエラーがあります</h2>
-    <ul>
-      <% @learning_record.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+  <% if @learning_record.errors.any? %>
+    <div style="color: red;">
+      <h2><%= @learning_record.errors.count %>件のエラーがあります</h2>
+      <ul>
+        <% @learning_record.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= render 'form', learning_record: @learning_record, return_path: learning_record_path(@learning_record) %>
+  <%= render 'form', learning_record: @learning_record, return_path: learning_record_path(@learning_record) %>
+</div>

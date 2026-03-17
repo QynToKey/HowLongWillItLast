@@ -1,14 +1,16 @@
-<h1>タグの編集</h1>
+<div class="container mt-5">
+  <h1 class="h4">タグの編集</h1>
 
-<% if @tag.errors.any? %>
-  <div style="color: red;">
-    <h2><%= @tag.errors.count %>件のエラーがあります</h2>
-    <ul>
-      <% @tag.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+  <% if @tag.errors.any? %>
+    <div style="color: red;">
+      <h2><%= @tag.errors.count %>件のエラーがあります</h2>
+      <ul>
+        <% @tag.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-<%= render 'form', tag: @tag, return_path: tags_path %>
+  <%= render 'form', tag: @tag, return_path: tags_path %>
+</div>
