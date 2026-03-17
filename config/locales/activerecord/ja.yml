@@ -16,6 +16,9 @@ ja:
         name: タグ名
   helpers:
     submit:
+      user:
+        create: 登録する
+        update: 更新する
       learning_record:
         create: 記録する
         update: 更新する
