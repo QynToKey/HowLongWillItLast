@@ -14,3 +14,11 @@ ja:
         study_date: 学習日
       tag:
         name: タグ名
+  helpers:
+    submit:
+      learning_record:
+        create: 記録する
+        update: 更新する
+      tag:
+        create: 作成する
+        update: 更新する

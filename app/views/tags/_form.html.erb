@@ -1,13 +1,12 @@
 <div>
   <%= form_with model: @tag do |f| %>
     <div>
-      <%= f.label :name, "タグ名" %><br>
+      <%= f.label :name %><br>
       <%= f.text_field :name %>
     </div>
 
     <div>
-      <%# f.submit のラベルはi18n対応後に削除予定 %>
-      <%= f.submit tag.new_record? ? "記録する" : "更新する" %>
+      <%= f.submit %>
       <%= link_to "戻る", return_path %>
     </div>
   <% end %>
