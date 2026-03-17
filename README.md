@@ -103,6 +103,7 @@
 - フレームワーク: Ruby on Rails 7.x
 - データベース: PostgreSQL
 - 認証: sorcery (core のみ)
+- CSS: Bootstrap
 - デプロイ先: Render / Neon
 - （その他未定: 実装しながら検討）
 
