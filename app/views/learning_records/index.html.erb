@@ -1,4 +1,10 @@
-<h1>学習ログ</h1>
+<% if params[:tag_id].present? %>
+  <h1>'<%= @current_tag.name %>' の学習ログ</h1>
+<% elsif params[:date].present? %>
+  <h1>'<%= Date.parse(params[:date]).strftime('%Y/%m/%d') %>' の学習ログ</h1>
+<% else %>
+  <h1>学習ログ</h1>
+<% end %>
 
 <%= link_to '記録を追加する', new_learning_record_path %>
 
@@ -13,7 +19,7 @@
   <tbody>
     <% @learning_records.each do |record| %>
       <tr>
-        <td><%= record.study_date.strftime('%Y-%m-%d') %></td>
+        <td><%= link_to record.study_date.strftime('%Y-%m-%d'), learning_records_path(date: record.study_date) %></td>
         <td><%= record.content %></td>
         <td><%= record.duration_minutes %></td>
         <td>
@@ -34,6 +40,10 @@
 <%# タグで絞り込んでいる場合は全件表示へのリンクを表示する %>
 <% if params[:tag_id].present? %>
   <p>'<%= @current_tag.name %>' の学習時間累計： <%= (current_user.total_learning_minutes_by_tag(@current_tag) / 60.0).round(1) %> 時間</p>
+  <%= link_to "全件表示へ戻る", learning_records_path %>
+<%# 日付で絞り込んでいる場合は全件表示へのリンクを表示する %>
+<% elsif params[:date].present? %>
+  <p>'<%= Date.parse(params[:date]).strftime('%Y/%m/%d') %>' の学習時間累計： <%= (current_user.total_learning_minutes_by_date(Date.parse(params[:date])) / 60.0).round(1) %> 時間</p>
   <%= link_to "全件表示へ戻る", learning_records_path %>
 <% end %>
 
