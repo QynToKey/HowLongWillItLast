@@ -1,22 +1,22 @@
-<%= form_with model: learning_record do |f| %>
-  <div>
-    <%= f.label :content %><br>
-    <%= f.text_area :content, rows: 4 %>
+<%= form_with model: learning_record, class: "container mt-4" do |f| %>
+  <div class="mb-3">
+    <%= f.label :content, class: "form-label" %><br>
+    <%= f.text_area :content, rows: 4, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :duration_minutes %><br>
-    <%= f.number_field :duration_minutes, min: 0, data: { stopwatch_target: "durationMinutes" } %>
+  <div class="mb-3">
+    <%= f.label :duration_minutes, class: "form-label" %><br>
+    <%= f.number_field :duration_minutes, min: 0, class: "form-control", data: { stopwatch_target: "durationMinutes" } %>
   </div>
 
-  <div>
-    <%= f.label :study_date %><br>
-    <%= f.date_field :study_date %>
+  <div class="mb-3">
+    <%= f.label :study_date, class: "form-label" %><br>
+    <%= f.date_field :study_date, class: "form-control" %>
   </div>
 
-  <div>
+  <div class="mb-3">
     <% if logged_in? %>
-      <%= f.label :tag_ids, "タグ" %><br>
+      <%= f.label :tag_ids, "タグ", class: "form-label" %><br>
       <% if current_user.tags.empty? %>
         <p>※ タグを先に<%= link_to 'タグ管理画面', tags_path %>から追加してください。</p>
       <% else %>
@@ -28,15 +28,15 @@
       <% end %>
     <% else %>
       <p>※ 記録するにはユーザー登録 / ログインしてください。</p>
-      <%= link_to 'ユーザー登録', new_user_path %> |
-      <%= link_to 'ログイン', login_path %>
+      <%= link_to 'ユーザー登録', new_user_path, class: "btn btn-sm btn-outline-primary" %> |
+      <%= link_to 'ログイン', login_path, class: "btn btn-sm btn-outline-secondary" %>
     <% end %>
   </div>
 
   <div>
     <% if logged_in? %>
-      <%= f.submit %>
-      <%= link_to "戻る", return_path %>
+      <%= f.submit class: "btn btn-sm btn-primary" %>
+      <%= link_to "戻る", return_path, class: "btn btn-sm btn-outline-secondary" %>
     <% end %>
   </div>
 

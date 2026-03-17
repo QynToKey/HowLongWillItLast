@@ -1,22 +1,23 @@
-<header class="app-header">
-  <nav>
-    <% if logged_in? %>
-      <%= link_to "HOME", root_path %> |
-      <%= link_to "マイページ", edit_user_path(current_user) %> |
-      <%= link_to "タグ管理", tags_path %> |
-      <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
-    <% else %>
-      <%= link_to "HOME", root_path %> |
-      <%= link_to "ログイン", login_path %> |
-      <%= link_to "新規登録", new_user_path %>
-    <% end %>
-  </nav>
-
-  <div class="flash-messages">
-    <% flash.each do |type, message| %>
-      <div class="flash <%= type %>">
-        <%= message %>
-      </div>
-    <% end %>
+<nav class="navbar navbar-expand-sm bg-body-tertiary">
+  <div class="container">
+  <%= link_to "How Long Will It Last", root_path, class: "nav-link text-muted" %>
+    <div class="navbar-nav ms-auto">
+      <% if logged_in? %>
+        <%= link_to "マイページ", edit_user_path(current_user), class: "nav-link" %>
+        <%= link_to "タグ管理", tags_path, class: "nav-link" %>
+        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "nav-link" %>
+      <% else %>
+        <%= link_to "ログイン", login_path, class: "nav-link" %>
+        <%= link_to "新規登録", new_user_path, class: "nav-link" %>
+      <% end %>
+    </div>
   </div>
-</header>
+</nav>
+
+<div class="flash-messages">
+  <% flash.each do |type, message| %>
+    <div class="flash <%= type %>">
+      <%= message %>
+    </div>
+  <% end %>
+</div>
