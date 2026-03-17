@@ -15,22 +15,30 @@
   </div>
 
   <div>
-    <%= f.label :tag_ids, "タグ" %><br>
-    <% if current_user.tags.empty? %>
-      <p>※ タグを先に<%= link_to 'タグ管理画面', tags_path %>から追加してください。</p>
-    <% else %>
-      <% current_user.tags.each do |tag| %>
-        <%# タグがすでに付いていればチェック済みで表示し、チェックされたらそのIDを送信する %>
-        <%= f.check_box :tag_ids, { multiple: true, checked: learning_record.tags.include?(tag) }, tag.id, false %>
-        <%= tag.name %>
+    <% if logged_in? %>
+      <%= f.label :tag_ids, "タグ" %><br>
+      <% if current_user.tags.empty? %>
+        <p>※ タグを先に<%= link_to 'タグ管理画面', tags_path %>から追加してください。</p>
+      <% else %>
+        <% current_user.tags.each do |tag| %>
+          <%# タグがすでに付いていればチェック済みで表示し、チェックされたらそのIDを送信する %>
+          <%= f.check_box :tag_ids, { multiple: true, checked: learning_record.tags.include?(tag) }, tag.id, false %>
+          <%= tag.name %>
+        <% end %>
       <% end %>
+    <% else %>
+      <p>※ 記録するにはユーザー登録 / ログインしてください。</p>
+      <%= link_to 'ユーザー登録', new_user_path %> |
+      <%= link_to 'ログイン', login_path %>
     <% end %>
   </div>
 
   <div>
-    <%# f.submit のラベルはi18n対応後に削除予定 %>
-    <%= f.submit learning_record.new_record? ? "記録する" : "更新する" %>
-    <%= link_to "戻る", return_path %>
+    <% if logged_in? %>
+      <%# f.submit のラベルはi18n対応後に削除予定 %>
+      <%= f.submit learning_record.new_record? ? "記録する" : "更新する" %>
+      <%= link_to "戻る", return_path %>
+    <% end %>
   </div>
 
 <% end %>
