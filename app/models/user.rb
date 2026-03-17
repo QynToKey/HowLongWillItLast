@@ -21,4 +21,9 @@ class User < ApplicationRecord
   def total_learning_minutes_by_tag(tag)
     learning_records.joins(:tags).where(tags: { id: tag.id }).sum(:duration_minutes)
   end
+
+  # 指定した日付の学習時間の合計を計算する
+  def total_learning_minutes_by_date(date)
+    learning_records.where(study_date: date).sum(:duration_minutes)
+  end
 end

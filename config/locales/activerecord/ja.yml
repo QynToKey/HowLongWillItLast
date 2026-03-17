@@ -1,0 +1,27 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        email: メールアドレス
+        name: 名前
+        password: パスワード
+        password_confirmation: パスワード確認
+      learning_record:
+        content: 学習内容
+        duration_minutes: 学習時間（分）
+        study_date: 学習日
+      tag:
+        name: タグ名
+  helpers:
+    submit:
+      user:
+        create: 登録する
+        update: 更新する
+      learning_record:
+        create: 記録する
+        update: 更新する
+      tag:
+        create: 作成する
+        update: 更新する

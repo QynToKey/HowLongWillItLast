@@ -11,6 +11,9 @@ class LearningRecordsController < ApplicationController
       @current_tag = current_user.tags.find(params[:tag_id])
       # タグIDが指定されている場合は、そのタグが付いている学習記録のみを表示する
       @learning_records = @learning_records.joins(:tags).where(tags: { id: @current_tag.id })
+    elsif params[:date].present?
+      # 学習日が指定されている場合は、その日に該当する学習記録のみを表示する
+      @learning_records = @learning_records.where(study_date: params[:date])
     end
   end
 

@@ -1,14 +1,13 @@
 <div>
-  <%= form_with model: @tag do |f| %>
-    <div>
-      <%= f.label :name, "タグ名" %><br>
-      <%= f.text_field :name %>
+  <%= form_with model: @tag, class: "container mt-4" do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, class: "form-label" %><br>
+      <%= f.text_field :name, class: "form-control" %>
     </div>
 
     <div>
-      <%# f.submit のラベルはi18n対応後に削除予定 %>
-      <%= f.submit tag.new_record? ? "記録する" : "更新する" %>
-      <%= link_to "戻る", return_path %>
+      <%= f.submit class: "btn btn-sm btn-primary" %>
+      <%= link_to "戻る", return_path, class: "btn btn-sm btn-outline-secondary" %>
     </div>
   <% end %>
 </div>

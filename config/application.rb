@@ -28,5 +28,7 @@ module HowLongWillItLast
     config.generators do |g|
       g.test_framework nil # テストファイルをつくらない
     end
+
+    config.i18n.default_locale = :ja
   end
 end
