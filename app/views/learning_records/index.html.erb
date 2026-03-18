@@ -40,18 +40,22 @@
     </tbody>
   </table>
 
-  <%# タグで絞り込んでいる場合は全件表示へのリンクを表示する %>
-  <% if params[:tag_id].present? %>
-    <p>'<%= @current_tag.name %>' の学習時間累計： <%= (current_user.total_learning_minutes_by_tag(@current_tag) / 60.0).round(1) %> 時間</p>
-    <%= link_to "全件表示へ戻る", learning_records_path, class: "btn btn-sm btn-outline-secondary" %>
-  <%# 日付で絞り込んでいる場合は全件表示へのリンクを表示する %>
-  <% elsif params[:date].present? %>
-    <p>'<%= Date.parse(params[:date]).strftime('%Y/%m/%d') %>' の学習時間累計： <%= (current_user.total_learning_minutes_by_date(Date.parse(params[:date])) / 60.0).round(1) %> 時間</p>
-    <%= link_to "全件表示へ戻る", learning_records_path, class: "btn btn-sm btn-outline-secondary" %>
-  <% end %>
+  <div>
+    <%# タグで絞り込んでいる場合は全件表示へのリンクを表示する %>
+    <% if params[:tag_id].present? %>
+      <p>'<%= @current_tag.name %>' の学習時間累計： <%= (current_user.total_learning_minutes_by_tag(@current_tag) / 60.0).round(1) %> 時間</p>
+      <%= link_to "全件表示へ戻る", learning_records_path, class: "btn btn-sm btn-outline-secondary" %>
+    <%# 日付で絞り込んでいる場合は全件表示へのリンクを表示する %>
+    <% elsif params[:date].present? %>
+      <p class="text-muted small mt-3">'<%= Date.parse(params[:date]).strftime('%Y/%m/%d') %>' の学習時間累計： <%= (current_user.total_learning_minutes_by_date(Date.parse(params[:date])) / 60.0).round(1) %> 時間</p>
+      <%= link_to "全件表示へ戻る", learning_records_path, class: "btn btn-sm btn-outline-secondary" %>
+    <% end %>
+  </div>
 
-  <% if current_user.learning_records.present? && current_user.tags.empty? %>
-    <p>タグがありません。タグを追加して学習ログを管理しましょう！</p>
-    <%= link_to 'タグを追加する', new_tag_path, class: "btn btn-sm btn-outline-primary" %>
-  <% end %>
+  <div>
+    <% if current_user.learning_records.present? && current_user.tags.empty? %>
+      <p class="text-muted small mt-3">※ タグがありません。タグを追加して学習ログを管理しましょう！</p>
+      <%= link_to 'タグを追加する', new_tag_path, class: "btn btn-sm btn-outline-primary" %>
+    <% end %>
+  </div>
 </div>
