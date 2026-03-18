@@ -18,7 +18,7 @@
     <% if logged_in? %>
       <%= f.label :tag_ids, "タグ", class: "form-label" %><br>
       <% if current_user.tags.empty? %>
-        <p>※ タグを先に<%= link_to 'タグ管理画面', tags_path %>から追加してください。</p>
+        <p class="text-muted small">※ タグがありません。<%= link_to 'タグ管理', tags_path %>から追加してください。</p>
       <% else %>
         <% current_user.tags.each do |tag| %>
           <%# タグがすでに付いていればチェック済みで表示し、チェックされたらそのIDを送信する %>
@@ -38,6 +38,9 @@
     <% if logged_in? %>
       <%= f.submit class: "btn btn-sm btn-primary" %>
       <%= link_to "戻る", return_path, class: "btn btn-sm btn-outline-secondary" %>
+    <% end %>
+    <% if  @learning_record.tags.empty? %>
+        <%= link_to "新規タグを追加", new_tag_path, class: "btn btn-sm btn-outline-primary" %>
     <% end %>
   </div>
 
