@@ -15,7 +15,7 @@
  */
  .stopwatch-container {
   /* margin: 20px auto; */
-  margin: 20px 20px 20px auto;
+  margin: 0 20px 0 auto;
   width: 270px;
   background: #fff;
   padding: 15px;
@@ -25,18 +25,18 @@
 
 .stopwatch-timer {
   background: #ddd;
-  height: 120px;
-  line-height: 120px;
+  height: 60px;
+  line-height: 60px;
   font-size: 40px;
   font-weight: bold;
-  margin-bottom: 15px;
+  margin-bottom: 8px;
   border-radius: 8px;
 }
 
 .stopwatch-btn {
   width: 80px;
-  height: 45px;
-  line-height: 45px;
+  height: 40px;
+  line-height: 40px;
   background: #ddd;
   font-weight: bold;
   border-radius: 8px;
