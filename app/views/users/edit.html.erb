@@ -1,7 +1,8 @@
 <div class="container mt-5">
   <h1 class="h4">マイページ</h1>
 
-  <div class"d-flex gap-2">
+  <div class="d-flex gap-2">
+    <%= link_to '学習記録を追加', new_learning_record_path, class: "btn btn-sm btn-outline-primary" %>
     <%= link_to "学習ログ", learning_records_path, method: :get, class: "btn btn-sm btn-outline-primary" %>
     <%= link_to "タグ管理", tags_path, method: :get, class: "btn btn-sm btn-outline-primary" %>
   </div>
