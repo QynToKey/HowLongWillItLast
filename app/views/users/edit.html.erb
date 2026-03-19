@@ -1,42 +1,48 @@
-<h1>マイページ</h1>
+<div class="container mt-5">
+  <h1 class="h4">マイページ</h1>
 
-<% if @user.errors.any? %>
-  <div style="color: red;">
-    <h2><%= @user.errors.count %>件のエラーがあります</h2>
-    <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<%= form_with model: @user, class: "container mt-4" do |f| %>
-  <div class="mb-3">
-    <%= f.label :name, class: "form-label" %><small>（ニックネーム可）</small><br>
-    <%= f.text_field :name, class: "form-control" %>
+  <div class="d-flex gap-2">
+    <%= link_to '学習記録を追加', new_learning_record_path, class: "btn btn-sm btn-outline-primary" %>
+    <%= link_to "学習ログ", learning_records_path, method: :get, class: "btn btn-sm btn-outline-primary" %>
+    <%= link_to "タグ管理", tags_path, method: :get, class: "btn btn-sm btn-outline-primary" %>
   </div>
 
-  <div class="mb-3">
-    <%= f.label :email, class: "form-label" %><br>
-    <%= f.email_field :email, class: "form-control" %>
-  </div>
+  <% if @user.errors.any? %>
+    <div style="color: red;">
+      <h2><%= @user.errors.count %>件のエラーがあります</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <div class="mb-3">
-    <%= f.label :password, class: "form-label" %><br>
-    <%= f.password_field :password, class: "form-control" %>
-  </div>
+  <%= form_with model: @user, class: "container mt-4" do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, class: "form-label" %><small>（ニックネーム可）</small><br>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
 
-  <div class="mb-3">
-    <%= f.label :password_confirmation, class: "form-label" %><br>
-    <%= f.password_field :password_confirmation, class: "form-control" %>
-  </div>
+    <div class="mb-3">
+      <%= f.label :email, class: "form-label" %><br>
+      <%= f.email_field :email, class: "form-control" %>
+    </div>
 
-  <div class"d-flex gap-2">
-    <%= f.submit class: "btn btn-sm btn-primary" %>
-    <%= button_to "削除", user_path(@user), method: :delete,
-    data: { turbo_confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
-    <%= link_to "学習ログへ戻る", learning_records_path, method: :get, class: "btn btn-sm btn-outline-primary" %>
-  </div>
+    <div class="mb-3">
+      <%= f.label :password, class: "form-label" %><br>
+      <%= f.password_field :password, class: "form-control" %>
+    </div>
 
-<% end %>
+    <div class="mb-3">
+      <%= f.label :password_confirmation, class: "form-label" %><br>
+      <%= f.password_field :password_confirmation, class: "form-control" %>
+    </div>
+
+    <div class"d-flex gap-2">
+      <%= f.submit class: "btn btn-sm btn-primary" %>
+      <%= button_to "削除", user_path(@user), method: :delete,
+      data: { turbo_confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+    </div>
+
+  <% end %>
