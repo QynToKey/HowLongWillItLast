@@ -9,9 +9,10 @@
     自己変容の足跡を記録してみましょう！
   </p>
 
-  <div class="d-flex gap-2">
+  <div>
     <% if logged_in? %>
       <%= link_to '今日の記録', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-primary" %>
+      <p class='small mt-3'>総学習時間： <%= (current_user.total_learning_minutes / 60.0).round(1) %> 時間</p>
       <% else %>
       <%= link_to '試してみる', new_learning_record_path, class: "btn btn-sm btn-outline-secondary" %>
     <% end %>
