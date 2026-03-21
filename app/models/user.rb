@@ -28,7 +28,7 @@ class User < ApplicationRecord
   end
 
   # 総学習時間
-  def total_learning_minutes()
+  def total_learning_minutes
     learning_records.sum(:duration_minutes)
   end
 end
