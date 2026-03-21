@@ -8,6 +8,7 @@ ja:
         name: 名前
         password: パスワード
         password_confirmation: パスワード確認
+        learning_theme: 学習テーマ
       learning_record:
         content: 学習内容
         duration_minutes: 学習時間（分）

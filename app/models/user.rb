@@ -26,4 +26,9 @@ class User < ApplicationRecord
   def total_learning_minutes_by_date(date)
     learning_records.where(study_date: date).sum(:duration_minutes)
   end
+
+  # 総学習時間
+  def total_learning_minutes
+    learning_records.sum(:duration_minutes)
+  end
 end

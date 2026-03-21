@@ -20,26 +20,32 @@
 
   <%= form_with model: @user, class: "container mt-4" do |f| %>
     <div class="mb-3">
-      <%= f.label :name, class: "form-label" %><small>（ニックネーム可）</small><br>
+      <%= f.label :name, class: "form-label" %><small>（ニックネーム可）</small>
       <%= f.text_field :name, class: "form-control" %>
     </div>
 
     <div class="mb-3">
-      <%= f.label :email, class: "form-label" %><br>
+      <%= f.label :email, class: "form-label" %>
       <%= f.email_field :email, class: "form-control" %>
     </div>
 
     <div class="mb-3">
-      <%= f.label :password, class: "form-label" %><br>
+      <%= f.label :password, class: "form-label" %>
       <%= f.password_field :password, class: "form-control" %>
     </div>
 
     <div class="mb-3">
-      <%= f.label :password_confirmation, class: "form-label" %><br>
+      <%= f.label :password_confirmation, class: "form-label" %>
       <%= f.password_field :password_confirmation, class: "form-control" %>
     </div>
 
-    <div class"d-flex gap-2">
+    <div class="mb-3">
+      <%= f.label :learning_theme, class: "form-label" %>
+      <%= f.text_field :learning_theme, class: "form-control",
+      placeholder: "※ 学習テーマを入力してください（例：英語、ギター）" %>
+    </div>
+
+    <div class="d-flex gap-2 mt-3">
       <%= f.submit class: "btn btn-sm btn-primary" %>
       <%= button_to "削除", user_path(@user), method: :delete,
       data: { turbo_confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
