@@ -11,8 +11,10 @@
         email： <%= current_user.email %>
       </p>
       <p class="mb-0 small ps-3">
-        パスワード： (変更する場合は<%= link_to 'こちら', edit_user_path(@current_user) %>)
+        パスワード： (変更する場合は<%= link_to 'こちら', edit_user_path(current_user) %>)
       </p>
+    </div>
+  </div>
 
   <div class="card mb-3">
     <div class="card-body">
@@ -34,8 +36,9 @@
     </div>
   </div>
 
-  <div class="d-flex gap-2">
-    <%= link_to '編集', edit_user_path(@current_user), class: "btn btn-sm btn-primary" %>
+  <div class="d-flex gap-2 mb-3 ps-2">
+    <%= link_to '編集', edit_user_path(current_user), class: "btn btn-sm btn-primary" %>
+    <%= link_to '今日の記録', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-outline-primary" %>
     <%= link_to 'ログ一覧', learning_records_path, class: "btn btn-sm btn-outline-primary" %>
     <%= link_to 'タグ管理', tags_path, class: "btn btn-sm btn-outline-primary" %>
   </div>
