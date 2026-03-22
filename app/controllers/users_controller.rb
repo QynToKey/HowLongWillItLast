@@ -18,6 +18,12 @@ class UsersController < ApplicationController
   end
 
   def show
+    @tag_summaries = current_user.tags.map do |tag|
+      {
+        name: tag.name,
+        hours: (current_user.total_learning_minutes_by_tag(tag) / 60.0).round(1)
+      }
+    end
   end
 
   def edit
