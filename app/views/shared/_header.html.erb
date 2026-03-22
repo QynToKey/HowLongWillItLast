@@ -3,7 +3,7 @@
   <%= link_to "How Long Will It Last", root_path, class: "nav-link text-muted" %>
     <div class="navbar-nav ms-auto">
       <% if logged_in? %>
-        <%= link_to "マイページ", edit_user_path(current_user), class: "nav-link" %>
+        <%= link_to "マイページ", user_path(current_user), class: "nav-link" %>
         <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "nav-link" %>
       <% else %>
         <%= link_to "ログイン", login_path, class: "nav-link" %>
