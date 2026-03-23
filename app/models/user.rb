@@ -22,7 +22,7 @@ class User < ApplicationRecord
     { hours: 1000, label: "初級" },
     { hours: 2500, label: "中級" },
     { hours: 5000, label: "上級" },
-    { hours: 10000, label: "エキスパート" },
+    { hours: 10000, label: "エキスパート" }
   ].freeze
 
   # 指定したタグが付いている学習時間の合計を計算する
