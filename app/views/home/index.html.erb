@@ -1,28 +1,53 @@
 <div class="container mt-5">
-  <h1 class="h4">How Long Will It Last</h1>
+  <p class="text-muted mb-1" style="font-size: 11px; letter-spacing: 0.08em;">LEARNING TRACKER</p>
+  <h1 class="h4 mb-3">How Long Will It Last</h1>
 
   <p class="text-muted small">
-    このアプリは、何かの技術や技能等を学ぶ際の「学習時間」と「学習内容」を記録するためのツールです。</p>
-  <p class="text-muted small">
-    長期的な成長の過程を記録する作業は、熟練技能者に求められる「メタ認知的戦略」を養うための材料になることでしょう。</p>
-  <p class="text-muted small">
-    自己変容の足跡を記録してみましょう！
-  </p>
+    学習時間と学習内容を記録し、長期的な自己変容の足跡を残すツールです。</p>
 
-  <div>
-    <% if logged_in? %>
-      <%= link_to '今日の記録', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-primary" %>
+  <% if logged_in? %>
+    <div class="mt-5 mb-4">
       <% if current_user.learning_theme.present? %>
-        <p class='small mt-3'>'<%= current_user.learning_theme %>' の総学習時間： <%= (current_user.total_learning_minutes / 60.0).round(1) %> 時間</p>
+        <p class='small mt-3'>'<%= current_user.learning_theme %>' の総学習時間</p>
       <% else %>
-        <p class='small mt-3'>総学習時間： <%= (current_user.total_learning_minutes / 60.0).round(1) %> 時間</p>
+        <p class='small mt-3'>総学習時間</p>
       <% end %>
-    <% else %>
-      <%= link_to '試してみる', new_learning_record_path, class: "btn btn-sm btn-outline-secondary" %>
-    <% end %>
-  </div>
 
-  <% unless logged_in? %>
+      <p class="h3 mb-2"><%= @total_hours %> 時間</p>
+
+      <% progress = [(@total_hours / 10000.0 * 100), 100].min.round(1) %>
+      <div class="progress mb-1" style="height: 6px;">
+        <div class="progress-bar bg-dark" style="width: <%= progress %>%;"></div>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <span class="text-muted" style="font-size: 11px;">0</span>
+        <span class="text-muted text-center" style="font-size: 11px;">1,000h<br>初級</span>
+        <span class="text-muted text-center" style="font-size: 11px;">2,500h<br>中級</span>
+        <span class="text-muted text-center" style="font-size: 11px;">5,000h<br>上級</span>
+        <span class="text-muted text-center" style="font-size: 11px;">10,000h<br>エキスパート</span>
+      </div>
+
+      <% if @next_threshold %>
+        <p class="text-muted small mt-2">
+          次のマイルストーンまで <%= (@next_threshold[:hours] - @total_hours).round(1) %> 時間
+          （<%= @next_threshold[:label] %>: <%= number_with_delimiter(@next_threshold[:hours]) %>時間）
+        </p>
+      <% else %>
+        <p class="text-muted small mt-2">エキスパートレベル達成！</p>
+      <% end %>
+    </div>
+
+    <%= link_to '今日の記録', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-primary" %>
+    <%= link_to '学習ログ', learning_records_path, class: "btn btn-sm btn-outline-primary" %>
+
+  <% else %>
+    <div class="d-flex gap-2 mt-5 mb-3">
+      <%= link_to '試してみる', new_learning_record_path, class: "btn btn-sm btn-primary" %>
+      <%= link_to 'ユーザー登録', new_user_path, class: "btn btn-sm btn-outline-secondary" %>
+      <%= link_to 'ログイン', login_path, class: "btn btn-sm btn-outline-secondary" %>
+    </div>
+
     <p class="text-muted small mt-3">
       ※ 記録するには <%= link_to 'ユーザー登録', new_user_path %> /
       <%= link_to 'ログイン', login_path %> してください。
