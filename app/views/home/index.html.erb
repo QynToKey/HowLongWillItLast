@@ -15,6 +15,11 @@
 
       <p class="h3 mb-2"><%= @total_hours %> 時間</p>
 
+      <% progress = [(@total_hours / 10000.0 * 100), 100].min.round(1) %>
+      <div class="progress mb-1" style="height: 6px;">
+        <div class="progress-bar bg-dark" style="width: <%= progress %>%;"></div>
+      </div>
+
       <div class="d-flex justify-content-between">
         <span class="text-muted" style="font-size: 11px;">0</span>
         <span class="text-muted text-center" style="font-size: 11px;">1,000h<br>初級</span>
