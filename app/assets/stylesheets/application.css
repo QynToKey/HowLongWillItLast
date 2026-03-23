@@ -52,3 +52,8 @@
 .inactive {
   opacity: 0.6;
 }
+
+::placeholder {
+  font-size: 0.8rem;
+  color: #bbb !important;
+}
