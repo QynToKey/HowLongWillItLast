@@ -18,6 +18,10 @@ class UsersController < ApplicationController
   end
 
   def show
+    # プログレスバーを表示するための変数
+    @total_hours = (current_user.total_learning_minutes / 60.0).round(1)
+    @next_threshold = current_user.next_threshold
+    
     @tag_summaries = current_user.tags.map do |tag|
       {
         name: tag.name,
