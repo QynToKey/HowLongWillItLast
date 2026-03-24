@@ -22,6 +22,10 @@
       学習テーマ： <%= current_user.learning_theme %>
     </h2>
       <p class='small mt-3'>総学習時間： <%= (current_user.total_learning_minutes / 60.0).round(1) %> 時間</p>
+
+      <%= render "shared/progressbar" %>
+      <%= yield %>
+
       <% if @tag_summaries.any? %>
         <ul class="small mt-2 ps^3">
           <% @tag_summaries.each do |summary| %>
