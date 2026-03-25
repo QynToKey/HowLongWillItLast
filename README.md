@@ -140,7 +140,7 @@
 #### Bテーブル：learning_themes
 
 - `user_id` : bigint / usersテーブルの外部キー（NOT NULL）
-- `name` : string / テーマ名（例：英語、Rails、ピアノなど）（NOT NULL）
+- `name` : string / テーマ名（例：英語、Rails、ピアノなど）
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
 
