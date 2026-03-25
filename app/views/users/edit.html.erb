@@ -31,7 +31,8 @@
 
     <div class="mb-3">
       <%= f.label :password, class: "form-label" %>
-      <%= f.password_field :password, class: "form-control" %>
+      <%= f.password_field :password, class: "form-control",
+      placeholder: "※ 変更する場合は、新しいパスワードを入力してください（６文字以上）" %>
     </div>
 
     <div class="mb-3">
@@ -47,8 +48,9 @@
 
     <div class="d-flex gap-2 mt-3">
       <%= f.submit class: "btn btn-sm btn-primary" %>
-      <%= button_to "削除", user_path(@user), method: :delete,
-      data: { turbo_confirm: "本当に削除しますか？" }, class: "btn btn-sm btn-outline-danger" %>
+      <%= button_to "アカウントを削除する", user_path(@user), method: :delete,
+      data: { turbo_confirm: "アカウントを削除すると全ての記録が失われます。よろしいですか？" }, class: "btn btn-sm btn-outline-danger" %>
+      <%= link_to "戻る", user_path(current_user), class: "btn btn-sm btn-outline-primary" %>
     </div>
 
   <% end %>
