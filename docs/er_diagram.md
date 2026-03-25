@@ -3,6 +3,7 @@
 ## 1️⃣ エンティティ一覧
 
 - users
+- learning_themes
 - learning_records
 - tags
 - todos
@@ -15,6 +16,11 @@
 
 - アプリ利用者
 - 認証情報を持つ
+
+### learning_themes
+
+- ユーザーが設定する学習テーマ
+- `learning_records` / `tags` / `todos` の親となる単位
 
 ### learning_records
 
@@ -32,9 +38,10 @@
 
 ## 3️⃣ リレーション整理
 
-- `user` は 0以上の `learning_records`を持つ
-- `user` は 0以上の `tags` を持つ
-- `user` は 0以上の `todos` を持つ
+- `user` は 1以上の `learning_themes`を持つ
+- `learning_theme` は 0以上の `learning_records` を持つ
+- `learning_theme` は 0以上の `tags` を持つ
+- `learning_theme` は 0以上の `todos` を持つ
 - `learning_records` と `tags` は多対多関係
 - `todos` と `tags` も多対多関係
 - 多対多関係は、それぞれ `record_tags`, `todo_tags` で管理する
@@ -56,6 +63,16 @@
 - ユーザー登録について
   - `users.email` は NOT NULL
 
+- 学習テーマについて
+  - `learning_themes.user` は NOT NULL
+  - `learning_themes.name` は NULL 許可
+
+  設計方針：
+
+  - テーマ名はユーザーの任意入力とし、記録スタイルの自由を担保する
+  - フォームにはプレースホルダーで入力を促すが、必須とはしない
+  - テーマの存在有無は `learning_theme.any?` で条件分岐して対応する
+
 - 学習内容の記録について
   - `learning_records.user_id`は NOT NULL
   - `learning_records.content` は NOT NULL
@@ -72,7 +89,7 @@
 ### **UNIQUE** 制約
 
 - `users.email` は UNIQUE
-- `tags.name` は、 `user_id` + `name` で UNIQUE
+- `tags.name` は、 `learning_theme_id` + `name` で UNIQUE
 - `record_tags` は、`(record_id, tag_id)` で UNIQUE
 - `todo_tags` は `(todo_id, tag_id)` で UNIQUE
 
@@ -109,9 +126,18 @@ erDiagram
         datetime updated_at
     }
 
+    LEARNING_THEMES {
+        bigint id PK
+        bigint user_id FK "NOT NULL"
+        string name
+        datetime created_at
+        datetime updated_at
+    }
+
     LEARNING_RECORDS {
         bigint id PK
         bigint user_id FK
+        bigint learning_theme_id FK "NOT NULL"
         date study_date "NOT NULL"
         integer duration_minutes
         text content "NOT NULL"
@@ -122,7 +148,8 @@ erDiagram
     TAGS {
         bigint id PK
         bigint user_id FK
-        string name "UNIQUE (user_id, name)"
+        bigint learning_theme_id FK "NOT NULL"
+        string name "UNIQUE (learning_theme_id, name)"
         datetime created_at
         datetime updated_at
     }
@@ -130,6 +157,7 @@ erDiagram
     TODOS {
         bigint id PK
         bigint user_id FK
+        bigint learning_theme_id FK "NOT NULL"
         string title
         text description
         boolean is_completed "NOT NULL, default: false"
@@ -147,9 +175,10 @@ erDiagram
       bigint tag_id FK "UNIQUE (todo_id, tag_id)"
     }
 
-    USERS ||--o{ LEARNING_RECORDS : has
-    USERS ||--o{ TAGS : has
-    USERS ||--o{ TODOS : has
+    USERS ||--o{ LEARNING_THEMES : has
+    LEARNING_THEMES ||--o{ LEARNING_RECORDS : has
+    LEARNING_THEMES ||--o{ TAGS : has
+    LEARNING_THEMES ||--o{ TODOS : has
 
     LEARNING_RECORDS ||--o{ RECORD_TAGS : has
     TAGS ||--o{ RECORD_TAGS : has
