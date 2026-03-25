@@ -88,13 +88,13 @@
   - [x] 「タグ」によるフィルタリング表示（一覧／累計時間）
 
 - MVPリリース後に実装を予定する機能
-  - ストップウォッチに「一時停止」機能を追加
-  - 「Todoリスト」の作成／編集／削除機能
-  - カレンダー機能（過去ログや一覧表示のための検索機能として）
-  - キーワードによる検索機能
-  - 外部へのデータエクスポート機能
-  - 累積データの豊富な表示オプション（週次、月次、年次での表示／様々なグラフ形式など）
-  - マイルストーン到達時の演出
+  - [x] ストップウォッチに「一時停止」機能を追加
+  - [ ] 「Todoリスト」の作成／編集／削除機能
+  - [ ] カレンダー機能（過去ログや一覧表示のための検索機能として）
+  - [ ] キーワードによる検索機能
+  - [ ] 外部へのデータエクスポート機能
+  - [ ] 累積データの豊富な表示オプション（週次、月次、年次での表示／様々なグラフ形式など）
+  - [x] マイルストーン到達時の演出
 
 ---
 
@@ -136,7 +136,14 @@
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
 
-#### Bテーブル：learning_records
+#### Bテーブル：learning_themes
+
+- `user_id` : bigint / usersテーブルの外部キー（NOT NULL）
+- `name` : string / テーマ名（例：英語、Rails、ピアノなど）（NOT NULL）
+- `created_at` : datetime / 作成日時
+- `updated_at` : datetime / 更新日時
+
+#### Cテーブル：learning_records
 
 - `user_id` : bigint / usersテーブルの外部キー
 - `study_date` : date / 学習日（NOT NULL）
@@ -145,30 +152,32 @@
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
 
-#### Cテーブル：tags
+#### Dテーブル：tags
 
 - `user_id` : bigint / usersテーブルの外部キー
+- `learning_theme_id` : bigint / learning_themesテーブルの外部キー（NOT NULL）
 - `name` : string / タグ名（例：英語、Rails、哲学など・任意）
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
 
-#### Dテーブル：todos （MVP リリース後に実装）
+#### Eテーブル：todos
 
 - `user_id` : bigint / usersテーブルの外部キー
+- `learning_theme_id` : bigint / learning_themesテーブルの外部キー（NOT NULL）
 - `title` : string / Todoのタイトル
 - `description` : text / 内容詳細（任意）
 - `is_completed` : boolean / 完了フラグ（default: false）
 - `created_at` : datetime / 作成日時
 - `updated_at` : datetime / 更新日時
 
-#### Eテーブル：record_tags
+#### Fテーブル：record_tags
 
 ※ learning_records と tags の多対多関係を管理する中間テーブル
 
 - `record_id` : bigint / learning_recordsテーブルの外部キー
 - `tag_id` : bigint / tagsテーブルの外部キー
 
-#### Fテーブル：todo_tags
+#### Gテーブル：todo_tags
 
 ※ todos と tags の多対多関係を管理する中間テーブル
 
