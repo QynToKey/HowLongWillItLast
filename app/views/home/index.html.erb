@@ -3,7 +3,12 @@
   <h1 class="h4 mb-3">How Long Will It Last</h1>
 
   <p class="text-muted small">
-    学習時間と学習内容を記録し、長期的な自己変容の足跡を残すツールです。</p>
+    学習時間と学習内容を記録し、長期的な自己変容の足跡を残すツールです。
+  </p>
+
+  <p class="text-muted small">
+    習熟の度合いを測る目安として、1000時間(初級) / 2500時間(中級) / 5000時間(上級) / 10000時間(エキスパート) にマイルストーンを置いて、学習の進捗度合いを可視化します。
+  </p>
 
   <% if logged_in? %>
     <div class="mt-5 mb-4">
@@ -14,7 +19,7 @@
       <% end %>
 
       <p class="h3 mb-2"><%= @total_hours %> 時間</p>
-      
+
       <%= render "shared/progressbar" %>
       <%= yield %>
     </div>
