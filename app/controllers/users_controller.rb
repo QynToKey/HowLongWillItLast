@@ -9,12 +9,19 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
 
-    if @user.save
-      auto_login(@user)
-      redirect_to user_path(current_user), notice: "登録が完了しました"
-    else
-      render :new, status: :unprocessable_entity
+    ActiveRecord::Base.transaction do
+      # このブロック内の処理は「全部成功」か「全部失敗」のどちらかになる
+      # @user.save! が失敗 → theme.save! は実行されず、@user の登録も取り消される
+      # learning_themes.create! が失敗 → @user の登録も取り消される
+      # → どちらかが失敗した場合、DBは transaction 実行前の状態に戻る（ロールバック）
+      @user.save!
+      @user.learning_themes.create!(name: params[:learning_theme_name].presence)
     end
+
+    auto_login(@user)
+    redirect_to user_path(current_user), notice: "登録が完了しました"
+  rescue ActiveRecord::RecordInvalid
+    render :new, status: :unprocessable_entity
   end
 
   def show
