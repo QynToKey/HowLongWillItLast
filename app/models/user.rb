@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :learning_records, dependent: :destroy
   has_many :tags, dependent: :destroy
   has_many :todos, dependent: :destroy
+  has_many :learning_themes, dependent: :destroy
 
   validates :name, presence: true
   validates :email, presence: true,
