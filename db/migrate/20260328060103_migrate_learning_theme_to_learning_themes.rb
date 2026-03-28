@@ -4,7 +4,7 @@ class MigrateLearningThemeToLearningThemes < ActiveRecord::Migration[8.1]
     User.find_each do |user|
       LearningTheme.create!(
         user_id: user.id,
-        name: user.learning_theme #nil でもそのまま learning_themes.name へコピー
+        name: user.learning_theme # nil でもそのまま learning_themes.name へコピー
       )
     end
 
