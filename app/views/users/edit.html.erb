@@ -41,8 +41,10 @@
     </div>
 
     <div class="mb-3">
-      <%= f.label :learning_theme, class: "form-label" %>
-      <%= f.text_field :learning_theme, class: "form-control",
+      <%= label_tag :learning_theme_name, "学習テーマ", class: "form-label" %>
+      <%= text_field_tag :learning_theme_name,
+          current_user.learning_themes.first&.name,
+          class: "form-control",
       placeholder: "※ 学習テーマを入力してください（例：英語、ギター）" %>
     </div>
 
