@@ -12,8 +12,8 @@
 
   <% if logged_in? %>
     <div class="mt-5 mb-4">
-      <% if current_user.learning_theme.present? %>
-        <p class='small mt-3'>'<%= current_user.learning_theme %>' の総学習時間</p>
+      <% if current_user.learning_themes.first&.name.present? %>
+        <p class='small mt-3'>'<%= current_user.learning_themes.first&.name %>' の総学習時間</p>
       <% else %>
         <p class='small mt-3'>総学習時間</p>
       <% end %>
