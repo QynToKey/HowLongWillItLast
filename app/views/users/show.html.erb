@@ -19,7 +19,7 @@
   <div class="card mb-3">
     <div class="card-body">
     <h2 class="card-title h6 text-muted">
-      学習テーマ： <%= current_user.learning_theme %>
+      学習テーマ： <%= current_user.learning_themes.first&.name %>
     </h2>
       <p class='small mt-3'>総学習時間： <%= (current_user.total_learning_minutes / 60.0).round(1) %> 時間</p>
 

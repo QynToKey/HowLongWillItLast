@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_21_093259) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_28_060103) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -22,6 +22,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_093259) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_learning_records_on_user_id"
+  end
+
+  create_table "learning_themes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id", "name"], name: "index_learning_themes_on_user_id_and_name", unique: true, where: "(name IS NOT NULL)"
+    t.index ["user_id"], name: "index_learning_themes_on_user_id"
   end
 
   create_table "record_tags", force: :cascade do |t|
@@ -67,7 +76,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_093259) do
     t.datetime "created_at", null: false
     t.string "crypted_password", null: false
     t.string "email", null: false
-    t.string "learning_theme"
     t.string "name"
     t.string "salt", null: false
     t.datetime "updated_at", null: false
@@ -75,6 +83,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_093259) do
   end
 
   add_foreign_key "learning_records", "users"
+  add_foreign_key "learning_themes", "users", on_delete: :cascade
   add_foreign_key "record_tags", "learning_records"
   add_foreign_key "record_tags", "tags"
   add_foreign_key "tags", "users"
