@@ -12,6 +12,11 @@
       <%= password_field_tag :password, nil, autocomplete: "current-password", class: "form-control" %>
     </div>
 
+    <div class="mb-3 form-check">
+      <%= check_box_tag :remember_me, "1", false, class: "form-check-input" %>
+      <%= label_tag :remember_me, "ログイン状態を保持する", class: "form-check-label" %>
+    </div>
+
     <div>
       <%= submit_tag "ログイン", class: "btn btn-sm btn-primary" %>
     </div>
