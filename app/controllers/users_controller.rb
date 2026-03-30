@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @learning_theme = current_user.learning_themes.first
     # プログレスバーを表示するための変数
     @total_hours = (current_user.total_learning_minutes / 60.0).round(1)
     @next_threshold = current_user.next_threshold
