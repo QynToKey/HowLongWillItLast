@@ -1,0 +1,16 @@
+ <div class="container mt-5" style="max-width: 600px;">
+  <h1 class="h4">TODO の作成</h1>
+
+  <% if @todo.errors.any? %>
+    <div style="color: red;">
+      <h2><%= @todo.errors.count %>件のエラーがあります</h2>
+      <ul>
+        <% @todo.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= render 'form', todo: @todo, return_path: learning_theme_todos_path(@learning_theme) %>
+ </div>
