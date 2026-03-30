@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_29_072729) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_30_082832) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -70,9 +70,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_29_072729) do
     t.datetime "created_at", null: false
     t.text "description"
     t.boolean "is_completed", default: false, null: false
+    t.bigint "learning_theme_id", null: false
     t.string "title"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.index ["learning_theme_id"], name: "index_todos_on_learning_theme_id"
     t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
@@ -97,5 +99,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_29_072729) do
   add_foreign_key "tags", "users"
   add_foreign_key "todo_tags", "tags"
   add_foreign_key "todo_tags", "todos"
+  add_foreign_key "todos", "learning_themes"
   add_foreign_key "todos", "users"
 end
