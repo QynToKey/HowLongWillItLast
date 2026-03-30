@@ -156,7 +156,7 @@ erDiagram
 
     TODOS {
         bigint id PK
-        bigint user_id FK
+        bigint user_id FK "NOT NULL"
         bigint learning_theme_id FK "NOT NULL"
         string title
         text description

@@ -6,4 +6,5 @@ class LearningTheme < ApplicationRecord
 
   has_many :learning_records, dependent: :destroy
   has_many :tags, dependent: :destroy
+  has_many :todos, dependent: :destroy
 end

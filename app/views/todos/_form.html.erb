@@ -1,0 +1,15 @@
+<div>
+  <%= form_with model: [@learning_theme, @todo], class: "container mt-4" do |f| %>
+    <div class="mb-3">
+      <%= f.label :title, class: "form-label" %><br>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+    <p class="text-muted small mt-3">※ 今後の学習計画や参照資料などを TODO リスト に追加して管理できます</p>
+
+    <div>
+      <%= f.submit class: "btn btn-sm btn-primary" %>
+      <%= link_to "戻る", return_path, class: "btn btn-sm btn-outline-secondary" %>
+    </div>
+  <% end %>
+</div>
