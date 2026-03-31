@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: [ :new, :create ]
   before_action :set_user, only: %i[show edit update destroy]
+  before_action :set_learning_theme, only: %i[show edit]
 
   def new
     @user = User.new
@@ -74,5 +75,10 @@ class UsersController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+  def set_learning_theme
+    # current_user の learning_themes の中からのみ検索することで、他ユーザーの learning_theme にアクセスできないようにする
+    @learning_theme = current_user.learning_themes.first
   end
 end
