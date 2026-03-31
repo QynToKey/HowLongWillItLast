@@ -8,7 +8,7 @@
   <% end %>
 
   <%= link_to '学習記録を追加', new_learning_record_path, class: "btn btn-sm btn-primary" %>
-  <%= link_to 'タグ管理', tags_path, class: "btn btn-sm btn-outline-primary" %>
+  <%= link_to 'タグ管理', learning_theme_tags_path(@learning_theme), class: "btn btn-sm btn-outline-primary" %>
   <%= link_to 'マイページ', user_path(current_user), class: "btn btn-sm btn-outline-primary" %>
 
   <table class="table table-hover">
@@ -61,7 +61,7 @@
   <div>
     <% if current_user.learning_records.present? && current_user.tags.empty? %>
       <p class="text-muted small mt-3">※ タグがありません。（タグを設定すると、タグごとに学習ログを管理できます）</p>
-      <%= link_to 'タグを追加する', new_tag_path, class: "btn btn-sm btn-outline-primary" %>
+      <%= link_to 'タグを追加する', new_learning_theme_tag_path(@learning_theme), class: "btn btn-sm btn-outline-primary" %>
     <% end %>
   </div>
 </div>
