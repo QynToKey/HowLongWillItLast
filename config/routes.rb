@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[new create edit show update destroy]
   resources :learning_records
-  resources :tags, only: %i[index new create edit update destroy]
   resources :learning_themes do
+    resources :tags, only: %i[index new create edit update destroy]
     resources :todos
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

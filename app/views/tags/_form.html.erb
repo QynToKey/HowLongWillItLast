@@ -1,5 +1,5 @@
 <div>
-  <%= form_with model: @tag, class: "container mt-4" do |f| %>
+  <%= form_with model: [@learning_theme, @tag], class: "container mt-4" do |f| %>
     <div class="mb-3">
       <%= f.label :name, class: "form-label" %><br>
       <%= f.text_field :name, class: "form-control" %>
