@@ -1,6 +1,7 @@
 class LearningRecordsController < ApplicationController
   skip_before_action :require_login, only: %i[new]
   before_action :set_learning_record, only: %i[show edit update destroy]
+  before_action :set_learning_theme, only: %i[index create edit update]
 
   def index
     # ユーザーが所有する学習記録をタグ情報とともに取得し、学習日が新しい順に並べる
@@ -63,5 +64,10 @@ class LearningRecordsController < ApplicationController
   def set_learning_record
     # ユーザーが所有する学習記録のみを検索する
     @learning_record = current_user.learning_records.find(params[:id])
+  end
+
+  def set_learning_theme
+    # current_user の learning_themes の中からのみ検索することで、他ユーザーの learning_theme にアクセスできないようにする
+    @learning_theme = current_user.learning_themes.first
   end
 end
