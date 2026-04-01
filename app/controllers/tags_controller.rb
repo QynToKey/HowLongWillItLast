@@ -12,6 +12,7 @@ class TagsController < ApplicationController
 
   def create
     @tag = @learning_theme.tags.build(tag_params)
+    @tag.user = current_user
 
     if @tag.save
       redirect_to learning_theme_tags_path(@learning_theme), notice: "タグを保存しました"
