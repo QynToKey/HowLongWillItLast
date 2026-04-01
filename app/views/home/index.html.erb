@@ -24,7 +24,7 @@
       <%= yield %>
     </div>
 
-    <%= link_to '今日の記録', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-primary" %>
+    <%= link_to '今日の学習を記録する', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-primary" %>
     <%= link_to '学習ログ', learning_records_path, class: "btn btn-sm btn-outline-primary" %>
 
   <% else %>
