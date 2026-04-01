@@ -37,8 +37,9 @@
   <div>
     <% if logged_in? %>
       <%= f.submit class: "btn btn-sm btn-primary" %>
-      <%= link_to "学習ログ", learning_records_path, class: "btn btn-sm btn-outline-primary" %>
       <%= link_to "タグ管理", learning_theme_tags_path(@learning_theme), class: "btn btn-sm btn-outline-primary" %>
+      <%= link_to "学習ログ", learning_records_path, class: "btn btn-sm btn-outline-primary" %>
+      <%= link_to 'マイページ', user_path(current_user), class: "btn btn-sm btn-outline-primary" %>
     <% end %>
   </div>
 
