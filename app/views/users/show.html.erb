@@ -10,9 +10,10 @@
       <p class="mb-1 small ps-3">
         email： <%= current_user.email %>
       </p>
-      <p class="mb-0 small ps-3">
+      <p class="mb-3 small ps-3">
         パスワード： (変更する場合は<%= link_to 'こちら', edit_user_path(current_user) %>)
       </p>
+    <%= link_to 'プロフィールを編集する', edit_user_path(current_user), class: "btn btn-sm btn-outline-primary" %>
     </div>
   </div>
 
@@ -33,6 +34,8 @@
           <% end %>
         </ul>
       <% end %>
+    <%= link_to '今日の学習を記録する', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-outline-primary" %>
+    <%= link_to '学習ログ', learning_records_path, class: "btn btn-sm btn-outline-primary" %>
     </div>
   </div>
 
@@ -60,13 +63,5 @@
           <%= link_to 'TODOを追加する', learning_theme_todos_path(@learning_theme), class: "btn btn-sm btn-outline-primary" %>
         <% end %>
     </div>
-  </div>
-
-  <div class="d-flex gap-2 mb-3 ps-2">
-    <%= link_to '編集', edit_user_path(current_user), class: "btn btn-sm btn-primary" %>
-    <%= link_to '今日の記録', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-outline-primary" %>
-    <%= link_to 'ログ一覧', learning_records_path, class: "btn btn-sm btn-outline-primary" %>
-    <%= link_to 'タグ管理', learning_theme_tags_path(@learning_theme), class: "btn btn-sm btn-outline-primary" %>
-    <%= link_to 'My TODOs', learning_theme_todos_path(@learning_theme), class: "btn btn-sm btn-outline-primary" %>
   </div>
 </div>
