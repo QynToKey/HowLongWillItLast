@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: [ :new, :create ]
   before_action :set_user, only: %i[show edit update destroy]
-  before_action :set_learning_theme, only: %i[show edit]
 
   def new
     @user = User.new
@@ -26,20 +25,23 @@ class UsersController < ApplicationController
   end
 
   def show
-    @learning_theme = current_user.learning_themes.first
-    # プログレスバーを表示するための変数
-    @total_hours = (current_user.total_learning_minutes / 60.0).round(1)
-    @next_threshold = current_user.next_threshold
+    # ユーザープロフィール画面では、ユーザーの学習テーマとタグごとの学習時間を表示するためにデータを準備する
+    @learning_themes = current_user.learning_themes
 
-    @tag_summaries = current_user.tags.map do |tag|
-      {
-        name: tag.name,
-        hours: (current_user.total_learning_minutes_by_tag(tag) / 60.0).round(1)
-      }
+    # 各 learning_theme ごとにタグの学習時間を計算してまとめる
+    @tag_summaries_by_theme = @learning_themes.each_with_object({}) do |theme, hash|
+      hash[theme.id] = theme.tags.map do |tag|
+        {
+          name: tag.name,
+          hours: (current_user.total_learning_minutes_by_tag(tag) / 60.0).round(1)
+        }
+      end
     end
   end
 
   def edit
+    # 編集画面では、最初の learning_theme を表示する（複数登録されている場合も最初のものだけ編集可能）
+    @learning_theme = current_user.learning_themes.first
   end
 
   def update
@@ -75,10 +77,5 @@ class UsersController < ApplicationController
 
   def set_user
     @user = current_user
-  end
-
-  def set_learning_theme
-    # current_user の learning_themes の中からのみ検索することで、他ユーザーの learning_theme にアクセスできないようにする
-    @learning_theme = current_user.learning_themes.first
   end
 end

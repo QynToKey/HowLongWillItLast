@@ -1,5 +1,5 @@
 <div class="container mt-5" style="max-width: 600px;">
-  <h1 class="h4">マイページ</h1>
+  <h1 class="h4">プロフィール編集</h1>
 
   <div class="d-flex gap-2">
     <%= link_to '学習記録を追加', new_learning_record_path, class: "btn btn-sm btn-outline-primary" %>
@@ -46,9 +46,13 @@
           current_user.learning_themes.first&.name,
           class: "form-control",
       placeholder: "※ 学習テーマを入力してください（例：英語、Rails、ピアノ など）" %>
+
+      <%# テーマ追加フォーム：複数テーマ公開時にコメントアウトを外す %>
+      <%# <%= text_field_tag :learning_theme_name[], nil, class: "form-control mt-2", placeholder: "※ 学習テーマは３つまで登録できます" %>
+      <%# <%= text_field_tag :learning_theme_name[], nil, class: "form-control mt-2", placeholder: "※ 学習テーマは３つまで登録できます" %>
     </div>
 
-    <div class="d-flex gap-2 mt-3">
+    <div class="d-flex gap-2 mt-4">
       <%= f.submit class: "btn btn-sm btn-primary" %>
       <%= button_to "アカウントを削除する", user_path(@user), method: :delete,
       data: { turbo_confirm: "アカウントを削除すると全ての記録が失われます。よろしいですか？" }, class: "btn btn-sm btn-outline-danger" %>
