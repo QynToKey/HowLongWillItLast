@@ -23,7 +23,9 @@
         <h2 class="card-title h6 text-muted">
           学習テーマ： <%= theme.name.presence || '未設定' %>
         </h2>
-        <%= button_to "このテーマを削除する", learning_theme_path(theme), method: :delete, data: { turbo_confirm: "このテーマを削除すると、関連する記録 / タグ / TODO も全て削除されます。よろしいですか？" }, class: "btn btn-sm btn-outline-danger" %>
+
+        <%# テーマ削除は、複数テーマ公開時にコメントアウトを外す %>
+        <%# <%= button_to "このテーマを削除する", learning_theme_path(theme), method: :delete, data: { turbo_confirm: "このテーマを削除すると、関連する記録 / タグ / TODO も全て削除されます。よろしいですか？" }, class: "btn btn-sm btn-outline-danger" %>
 
         <p class='small mt-3'>総学習時間： <%= theme.total_learning_minutes_in_hours %> 時間</p>
 
