@@ -20,6 +20,11 @@ class LearningTheme < ApplicationRecord
     User::THRESHOLDS.find { |t| t[:hours] > total_hours }
   end
 
+  # 総学習時間を時間単位で取得（小数点1位まで）
+  def total_learning_minutes_in_hours
+    (total_learning_minutes / 60.0).round(1)
+  end
+
   private
 
   def within_theme_limit
