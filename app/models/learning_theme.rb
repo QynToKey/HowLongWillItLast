@@ -9,6 +9,17 @@ class LearningTheme < ApplicationRecord
   has_many :tags, dependent: :destroy
   has_many :todos, dependent: :destroy
 
+  # 総学習時間
+  def total_learning_minutes
+    learning_records.sum(:duration_minutes)
+  end
+
+  # 現在の総学習時間を超える最初の閾値を取得
+  def next_threshold
+    total_hours = total_learning_minutes / 60.0
+    User::THRESHOLDS.find { |t| t[:hours] > total_hours }
+  end
+
   private
 
   def within_theme_limit
