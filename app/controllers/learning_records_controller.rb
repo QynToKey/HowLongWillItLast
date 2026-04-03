@@ -26,6 +26,7 @@ class LearningRecordsController < ApplicationController
   def create
     # ユーザーが所有する学習記録を作成する
     @learning_record = current_user.learning_records.build(learning_record_params)
+    @learning_record.learning_theme = @learning_theme if @learning_theme.present?
 
     if @learning_record.save
       redirect_to @learning_record, notice: "学習記録を保存しました"
