@@ -12,21 +12,20 @@
 
   <% if logged_in? %>
     <div class="mt-5 mb-4">
-      <% if current_user.learning_themes.first&.name.present? %>
-        <p class='small mt-3'>'<%= current_user.learning_themes.first&.name %>' の総学習時間</p>
-      <% else %>
-        <p class='small mt-3'>総学習時間</p>
+      <% @learning_themes.each do |theme| %>
+        <p class='small mt-3 mb-1'>
+          '<%= theme.name.presence || '未設定' %>' の総学習時間
+        </p>
+        <p class="h3 mb-2"><%= theme.total_learning_minutes_in_hours %> 時間</p>
+        <%= render "shared/progressbar", theme: theme %>
+        <hr class="my-3">
       <% end %>
-
-      <p class="h3 mb-2"><%= @theme&.total_learning_minutes_in_hours %> 時間</p>
-
-      <%= render "shared/progressbar", theme: @theme %>
-      <%= yield %>
     </div>
 
-    <%= link_to '今日の学習を記録する', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-primary" %>
-    <%= link_to '学習ログ', learning_records_path, class: "btn btn-sm btn-outline-primary" %>
-
+    <div class="d-flex gap-2 mt-5 mb-3">
+      <%= link_to '今日の学習を記録する', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-primary" %>
+      <%= link_to '学習ログ', learning_records_path, class: "btn btn-sm btn-outline-primary" %>
+    </div>
   <% else %>
     <div class="d-flex gap-2 mt-5 mb-3">
       <%= link_to '試してみる', new_learning_record_path, class: "btn btn-sm btn-primary" %>
@@ -40,7 +39,7 @@
     </p>
   <% end %>
 
-  <div class="text-muted small mt-5 text-center">
+  <div class="text-muted small mt-5 text-end">
     <%= link_to 'このアプリについて', about_path %>  |
     <%= link_to '開発ログ', logs_path %>  |
     <%= link_to 'ご意見 / お問合せ', 'https://forms.gle/FF7vLDtC6qdt7m2P7', target: "_blank", rel: "noopener noreferrer" %>
