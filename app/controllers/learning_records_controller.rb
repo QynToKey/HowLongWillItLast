@@ -1,7 +1,7 @@
 class LearningRecordsController < ApplicationController
   skip_before_action :require_login, only: %i[new]
   before_action :set_learning_record, only: %i[show edit update destroy]
-  before_action :set_learning_theme, only: %i[index new create edit update]
+  before_action :set_learning_theme, only: %i[index new create edit update destroy]
 
   def index
     # ユーザーが所有する学習記録をタグ情報とともに取得し、学習日が新しい順に並べる
@@ -59,7 +59,7 @@ class LearningRecordsController < ApplicationController
 
   def destroy
     @learning_record.destroy
-    redirect_to learning_records_path, notice: "学習記録を削除しました"
+    redirect_to learning_records_path(theme_id: @learning_theme.id), notice: "学習記録を削除しました"
   end
 
   private
