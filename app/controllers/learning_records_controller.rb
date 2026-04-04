@@ -5,7 +5,13 @@ class LearningRecordsController < ApplicationController
 
   def index
     # ユーザーが所有する学習記録をタグ情報とともに取得し、学習日が新しい順に並べる
-    @learning_records = current_user.learning_records.includes(:tags).order(study_date: :desc)
+    @learning_records = if params[:theme_id].present?
+                          # テーマIDが指定されている場合は、そのテーマに該当する学習記録のみを表示する
+                          current_user.learning_records.where(learning_theme_id: @learning_theme.id).includes(:tags).order(study_date: :desc)
+                        else
+                          # テーマIDが指定されていない場合は、すべての学習記録を表示する
+                          current_user.learning_records.includes(:tags).order(study_date: :desc)
+                        end
 
     if params[:tag_id].present?
       # ユーザーが所有するタグの中から、指定されたタグIDに該当するタグを見つける
@@ -68,7 +74,11 @@ class LearningRecordsController < ApplicationController
   end
 
   def set_learning_theme
-    # current_user の learning_themes の中からのみ検索することで、他ユーザーの learning_theme にアクセスできないようにする
-    @learning_theme = current_user&.learning_themes&.first
+    # テーマIDが指定されている場合は、そのテーマをセットする。指定されていない場合は、ユーザーの最初のテーマをセットする。
+    @learning_theme = if params[:theme_id].present?
+                        current_user.learning_themes.find(params[:theme_id])
+                      else
+                        current_user&.learning_themes&.first
+                      end
   end
 end
