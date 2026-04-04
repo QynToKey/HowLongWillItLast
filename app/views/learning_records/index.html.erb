@@ -59,7 +59,7 @@
   </div>
 
   <div>
-    <% if current_user.learning_records.present? && current_user.tags.empty? %>
+    <% if current_user.learning_records.present? && @learning_theme.tags.empty? %>
       <p class="text-muted small mt-3">※ タグがありません。（タグを設定すると、タグごとに学習ログを管理できます）</p>
       <%= link_to 'タグを追加する', new_learning_theme_tag_path(@learning_theme), class: "btn btn-sm btn-outline-primary" %>
     <% end %>
