@@ -17,10 +17,10 @@
   <div class="mb-3">
     <% if logged_in? %>
       <%= f.label :tag_ids, "タグ", class: "form-label" %><br>
-      <% if current_user.tags.empty? %>
-        <p class="text-muted small">※ タグがありません。<%= link_to 'タグ管理', tags_path %>から追加してください。</p>
+      <% if @learning_theme.tags.empty? %>
+        <p class="text-muted small">※ タグがありません。<%= link_to 'タグ管理', learning_theme_tags_path(@learning_theme) %>から追加してください。</p>
       <% else %>
-        <% current_user.tags.each do |tag| %>
+        <% @learning_theme.tags.each do |tag| %>
           <%# タグがすでに付いていればチェック済みで表示し、チェックされたらそのIDを送信する %>
           <%= f.check_box :tag_ids, { multiple: true, checked: learning_record.tags.include?(tag) }, tag.id, false %>
           <%= tag.name %>
@@ -38,7 +38,7 @@
     <% if logged_in? %>
       <%= f.submit class: "btn btn-sm btn-primary" %>
       <%= link_to "タグ管理", learning_theme_tags_path(@learning_theme), class: "btn btn-sm btn-outline-primary" %>
-      <%= link_to "学習ログ", learning_records_path, class: "btn btn-sm btn-outline-primary" %>
+      <%= link_to "学習ログ", learning_records_path(theme_id: @learning_theme.id), class: "btn btn-sm btn-outline-primary" %>
       <%= link_to 'マイページ', user_path(current_user), class: "btn btn-sm btn-outline-primary" %>
     <% end %>
   </div>

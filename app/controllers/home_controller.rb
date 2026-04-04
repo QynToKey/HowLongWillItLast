@@ -2,9 +2,9 @@ class HomeController < ApplicationController
   skip_before_action :require_login, only: [ :index ]
 
   def index
-    # ログインユーザーの最初の学習テーマを取得して表示する
+    # トップページでは、ログインユーザーの学習テーマとその学習時間を表示するためにデータを準備する
     if logged_in?
-      @theme = current_user.learning_themes.first
+      @learning_themes = current_user.learning_themes
     end
   end
 end

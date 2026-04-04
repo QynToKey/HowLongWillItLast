@@ -2,8 +2,8 @@
   <h1 class="h4">プロフィール編集</h1>
 
   <div class="d-flex gap-2">
-    <%= link_to '学習記録を追加', new_learning_record_path, class: "btn btn-sm btn-outline-primary" %>
-    <%= link_to "学習ログ", learning_records_path, method: :get, class: "btn btn-sm btn-outline-primary" %>
+    <%= link_to '学習記録を追加', new_learning_record_path(study_date: Date.current, theme_id: @learning_theme.id), class: "btn btn-sm btn-outline-primary" %>
+    <%= link_to "学習ログ", learning_records_path(theme_id: @learning_theme.id), method: :get, class: "btn btn-sm btn-outline-primary" %>
     <%= link_to "タグ管理", learning_theme_tags_path(@learning_theme), method: :get, class: "btn btn-sm btn-outline-primary" %>
   </div>
 
@@ -41,15 +41,13 @@
     </div>
 
     <div class="mb-3">
-      <%= label_tag :learning_theme_name, "学習テーマ", class: "form-label" %>
-      <%= text_field_tag :learning_theme_name,
-          current_user.learning_themes.first&.name,
-          class: "form-control",
-      placeholder: "※ 学習テーマを入力してください（例：英語、Rails、ピアノ など）" %>
-
-      <%# テーマ追加フォーム：複数テーマ公開時にコメントアウトを外す %>
-      <%# <%= text_field_tag :learning_theme_name[], nil, class: "form-control mt-2", placeholder: "※ 学習テーマは３つまで登録できます" %>
-      <%# <%= text_field_tag :learning_theme_name[], nil, class: "form-control mt-2", placeholder: "※ 学習テーマは３つまで登録できます" %>
+      <%= label_tag :learning_theme_names, "学習テーマ", class: "form-label" %>
+      <% current_user.learning_themes.each do |theme| %>
+        <%= text_field_tag "learning_theme_names[]", theme.name, class: "form-control mb-2", placeholder: "※ 学習テーマを入力してください（例：英語、Rails、ピアノ など）" %>
+      <% end %>
+      <% (3 - current_user.learning_themes.count).times do %>
+        <%= text_field_tag :"learning_theme_names[]", nil, class: "form-control mb-2", placeholder: "※ 学習テーマは３つまで登録できます" %>
+      <% end %>
     </div>
 
     <div class="d-flex gap-2 mt-4">

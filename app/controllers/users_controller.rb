@@ -46,8 +46,8 @@ class UsersController < ApplicationController
 
   def update
     @user.assign_attributes(user_params) # 属性を更新するが保存しない
-    theme = @user.learning_themes.first_or_initialize # すでに learning_themes があればそれを、なければ新規で用意する
-    theme.name = params[:learning_theme_name].presence
+
+    theme_names = params[:learning_theme_names].reject(&:blank?) # 空の入力を除外してテーマ名を更新
 
     ActiveRecord::Base.transaction do
       # このブロック内の処理は「全部成功」か「全部失敗」のどちらかになる
@@ -55,7 +55,18 @@ class UsersController < ApplicationController
       # theme.save! が失敗 → @user の変更も取り消される
       # → どちらかが失敗した場合、DBは transaction 実行前の状態に戻る（ロールバック）
       @user.save!
-      theme.save! # save 成功時は次の行へ、失敗時は例外 (Rescue) へ飛ぶ
+
+      # 既存テーマを更新 / 新規テーマを追加
+      theme_names.each_with_index do |name, i|
+        theme = current_user.learning_themes[i] || current_user.learning_themes.build
+        theme.name = name
+        theme.save!
+      end
+
+      # 送信されたテーマ数より多い既存テーマは削除する
+      if current_user.learning_themes.size > theme_names.size
+        current_user.learning_themes[theme_names.size..].each(&:destroy!)
+      end
     end
 
     redirect_to user_path(current_user), notice: "ユーザー情報を更新しました"
