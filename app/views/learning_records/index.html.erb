@@ -23,18 +23,18 @@
     <tbody>
       <% @learning_records.each do |record| %>
         <tr>
-          <td><%= link_to record.study_date.strftime('%Y-%m-%d'), learning_records_path(date: record.study_date) %></td>
+          <td><%= link_to record.study_date.strftime('%Y-%m-%d'), learning_records_path(date: record.study_date, theme_id: @learning_theme.id) %></td>
           <td><%= record.content %></td>
           <td><%= record.duration_minutes %></td>
           <td>
             <% record.tags.each do |tag| %>
               <%# タグ名をクリックすると、そのタグが付いている学習記録の一覧に遷移する %>
-              <span><%= link_to tag.name, learning_records_path(tag_id: tag.id) %></span>
+              <span><%= link_to tag.name, learning_records_path(tag_id: tag.id, theme_id: @learning_theme.id) %></span>
             <% end %>
           </td>
           <td>
-            <%= link_to '編集', edit_learning_record_path(record), class: "btn btn-sm btn-outline-secondary" %>
-            <%= link_to '削除', learning_record_path(record), class: "btn btn-sm btn-outline-danger", data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+            <%= link_to '編集', edit_learning_record_path(record, theme_id: @learning_theme.id), class: "btn btn-sm btn-outline-secondary" %>
+            <%= link_to '削除', learning_record_path(record, theme_id: @learning_theme.id), class: "btn btn-sm btn-outline-danger", data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
           </td>
         </tr>
       <% end %>
@@ -50,11 +50,11 @@
     <%# タグで絞り込んでいる場合は全件表示へのリンクを表示する %>
     <% if params[:tag_id].present? %>
       <p class='text-muted small mt-3'>'<%= @current_tag.name %>' の学習時間累計： <%= (current_user.total_learning_minutes_by_tag(@current_tag) / 60.0).round(1) %> 時間</p>
-      <%= link_to "全件表示へ戻る", learning_records_path, class: "btn btn-sm btn-outline-secondary" %>
+      <%= link_to "全件表示へ戻る", learning_records_path(theme_id: @learning_theme.id), class: "btn btn-sm btn-outline-secondary" %>
     <%# 日付で絞り込んでいる場合は全件表示へのリンクを表示する %>
     <% elsif params[:date].present? %>
       <p class="text-muted small mt-3">'<%= Date.parse(params[:date]).strftime('%Y/%m/%d') %>' の学習時間累計： <%= (current_user.total_learning_minutes_by_date(Date.parse(params[:date])) / 60.0).round(1) %> 時間</p>
-      <%= link_to "全件表示へ戻る", learning_records_path, class: "btn btn-sm btn-outline-secondary" %>
+      <%= link_to "全件表示へ戻る", learning_records_path(theme_id: @learning_theme.id), class: "btn btn-sm btn-outline-secondary" %>
     <% end %>
   </div>
 
