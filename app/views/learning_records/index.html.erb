@@ -42,8 +42,8 @@
   </table>
 
   <div>
-    <%# 総学習時間を表示 %>
-    <p class='small mt-3'>総学習時間： <%= (current_user.total_learning_minutes / 60.0).round(1) %> 時間</p>
+    <%# テーマごとの総学習時間を表示 %>
+    <p class='small mt-3'>総学習時間（<%= @learning_theme.name %>）： <%= (@learning_theme.total_learning_minutes / 60.0).round(1) %> 時間</p>
   </div>
 
   <div>
