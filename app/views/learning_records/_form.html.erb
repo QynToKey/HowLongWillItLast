@@ -1,6 +1,6 @@
 <%= form_with model: learning_record, class: "container mt-4" do |f| %>
   <%# 学習テーマIDをhidden_fieldで送信する（URLパラメータからではなく、フォームの一部として送信する） %>
-  <%= hidden_field_tag :theme_id, @learning_theme.id %>
+  <%= hidden_field_tag :theme_id, @learning_theme&.id %>
 
   <div class="mb-3">
     <%= f.label :content, class: "form-label" %><br>
