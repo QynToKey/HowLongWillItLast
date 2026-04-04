@@ -8,10 +8,10 @@ class LearningRecordsController < ApplicationController
     @learning_records = if params[:theme_id].present?
                           # テーマIDが指定されている場合は、そのテーマに該当する学習記録のみを表示する
                           current_user.learning_records.where(learning_theme_id: @learning_theme.id).includes(:tags).order(study_date: :desc)
-                        else
+    else
                           # テーマIDが指定されていない場合は、すべての学習記録を表示する
                           current_user.learning_records.includes(:tags).order(study_date: :desc)
-                        end
+    end
 
     if params[:tag_id].present?
       # ユーザーが所有するタグの中から、指定されたタグIDに該当するタグを見つける
@@ -77,8 +77,8 @@ class LearningRecordsController < ApplicationController
     # テーマIDが指定されている場合は、そのテーマをセットする。指定されていない場合は、ユーザーの最初のテーマをセットする。
     @learning_theme = if params[:theme_id].present?
                         current_user.learning_themes.find(params[:theme_id])
-                      else
+    else
                         current_user&.learning_themes&.first
-                      end
+    end
   end
 end
