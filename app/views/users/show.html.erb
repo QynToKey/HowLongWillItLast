@@ -45,7 +45,7 @@
           </ul>
         <% end %>
 
-        <%= link_to '今日の学習を記録する', new_learning_record_path(study_date: Date.current), class: "btn btn-sm btn-outline-primary" %>
+        <%= link_to '今日の学習を記録する', new_learning_record_path(study_date: Date.current, theme_id: theme.id), class: "btn btn-sm btn-outline-primary" %>
         <%= link_to '学習ログ', learning_records_path(theme_id: theme.id), class: "btn btn-sm btn-outline-primary" %>
 
         <hr class="my-3">

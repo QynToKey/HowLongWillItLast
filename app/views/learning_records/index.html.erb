@@ -7,7 +7,7 @@
     <h1 class="h4">学習ログ</h1>
   <% end %>
 
-  <%= link_to '今日の学習を記録する', new_learning_record_path, class: "btn btn-sm btn-primary" %>
+  <%= link_to '今日の学習を記録する', new_learning_record_path(study_date: Date.current, theme_id: @learning_theme.id), class: "btn btn-sm btn-primary" %>
   <%= link_to 'タグ管理', learning_theme_tags_path(@learning_theme), class: "btn btn-sm btn-outline-primary" %>
   <%= link_to 'マイページ', user_path(current_user), class: "btn btn-sm btn-outline-primary" %>
 

@@ -2,8 +2,8 @@
   <h1 class="h4">プロフィール編集</h1>
 
   <div class="d-flex gap-2">
-    <%= link_to '学習記録を追加', new_learning_record_path, class: "btn btn-sm btn-outline-primary" %>
-    <%= link_to "学習ログ", learning_records_path, method: :get, class: "btn btn-sm btn-outline-primary" %>
+    <%= link_to '学習記録を追加', new_learning_record_path(study_date: Date.current, theme_id: @learning_theme.id), class: "btn btn-sm btn-outline-primary" %>
+    <%= link_to "学習ログ", learning_records_path(theme_id: @learning_theme.id), method: :get, class: "btn btn-sm btn-outline-primary" %>
     <%= link_to "タグ管理", learning_theme_tags_path(@learning_theme), method: :get, class: "btn btn-sm btn-outline-primary" %>
   </div>
 
