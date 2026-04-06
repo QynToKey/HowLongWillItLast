@@ -74,7 +74,6 @@
   - テーマの存在有無は `learning_theme.any?` で条件分岐して対応する
 
 - 学習内容の記録について
-  - `learning_records.user_id`は NOT NULL
   - `learning_records.content` は NOT NULL
 
 - 記録オプションについて
@@ -136,7 +135,6 @@ erDiagram
 
     LEARNING_RECORDS {
         bigint id PK
-        bigint user_id FK
         bigint learning_theme_id FK "NOT NULL"
         date study_date "NOT NULL"
         integer duration_minutes
@@ -147,7 +145,6 @@ erDiagram
 
     TAGS {
         bigint id PK
-        bigint user_id FK
         bigint learning_theme_id FK "NOT NULL"
         string name "UNIQUE (learning_theme_id, name)"
         datetime created_at
@@ -156,7 +153,6 @@ erDiagram
 
     TODOS {
         bigint id PK
-        bigint user_id FK "NOT NULL"
         bigint learning_theme_id FK "NOT NULL"
         string title
         text description
