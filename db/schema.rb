@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_04_084417) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_06_053128) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -21,9 +21,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_084417) do
     t.bigint "learning_theme_id"
     t.date "study_date", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.index ["learning_theme_id"], name: "index_learning_records_on_learning_theme_id"
-    t.index ["user_id"], name: "index_learning_records_on_user_id"
   end
 
   create_table "learning_themes", force: :cascade do |t|
@@ -50,10 +48,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_084417) do
     t.bigint "learning_theme_id"
     t.string "name", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.index ["learning_theme_id", "name"], name: "index_tags_on_learning_theme_id_and_name", unique: true
     t.index ["learning_theme_id"], name: "index_tags_on_learning_theme_id"
-    t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
   create_table "todo_tags", force: :cascade do |t|
@@ -73,9 +69,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_084417) do
     t.bigint "learning_theme_id", null: false
     t.string "title"
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.index ["learning_theme_id"], name: "index_todos_on_learning_theme_id"
-    t.index ["user_id"], name: "index_todos_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -91,14 +85,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_04_084417) do
   end
 
   add_foreign_key "learning_records", "learning_themes"
-  add_foreign_key "learning_records", "users"
   add_foreign_key "learning_themes", "users", on_delete: :cascade
   add_foreign_key "record_tags", "learning_records"
   add_foreign_key "record_tags", "tags"
   add_foreign_key "tags", "learning_themes"
-  add_foreign_key "tags", "users"
   add_foreign_key "todo_tags", "tags"
   add_foreign_key "todo_tags", "todos"
   add_foreign_key "todos", "learning_themes"
-  add_foreign_key "todos", "users"
 end

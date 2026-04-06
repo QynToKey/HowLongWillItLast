@@ -146,7 +146,6 @@
 
 #### Cテーブル：learning_records
 
-- `user_id` : bigint / usersテーブルの外部キー
 - `study_date` : date / 学習日（NOT NULL）
 - `duration_minutes` : integer / 学習時間（分単位）
 - `content` : text / 学習内容の記録
@@ -155,7 +154,6 @@
 
 #### Dテーブル：tags
 
-- `user_id` : bigint / usersテーブルの外部キー
 - `learning_theme_id` : bigint / learning_themesテーブルの外部キー（NOT NULL）
 - `name` : string / タグ名（例：英語、Rails、哲学など・任意）
 - `created_at` : datetime / 作成日時
@@ -163,7 +161,6 @@
 
 #### Eテーブル：todos
 
-- `user_id` : bigint / usersテーブルの外部キー
 - `learning_theme_id` : bigint / learning_themesテーブルの外部キー（NOT NULL）
 - `title` : string / Todoのタイトル
 - `description` : text / 内容詳細（任意）
