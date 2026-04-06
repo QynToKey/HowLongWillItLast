@@ -3,10 +3,10 @@ class User < ApplicationRecord
 
   before_validation { email&.downcase! } # 保存時に正規化
 
-  has_many :learning_records, dependent: :destroy
-  has_many :tags, dependent: :destroy
-  has_many :todos, dependent: :destroy
   has_many :learning_themes, dependent: :destroy
+  has_many :learning_records, through: :learning_themes
+  has_many :tags, through: :learning_themes
+  has_many :todos, through: :learning_themes
 
   validates :name, presence: true
   validates :email, presence: true,
