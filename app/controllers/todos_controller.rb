@@ -12,7 +12,6 @@ class TodosController < ApplicationController
 
   def create
     @todo = @learning_theme.todos.build(todo_params)
-    @todo.user = current_user
 
     if @todo.save
       redirect_to learning_theme_todos_path(@learning_theme), notice: "Todoを保存しました"
