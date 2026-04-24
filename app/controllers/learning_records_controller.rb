@@ -17,11 +17,13 @@ class LearningRecordsController < ApplicationController
       # ユーザーが所有するタグの中から、指定されたタグIDに該当するタグを見つける
       @current_tag = current_user.tags.find(params[:tag_id])
       # タグIDが指定されている場合は、そのタグが付いている学習記録のみを表示する
-      @learning_records = @learning_records.joins(:tags).where(tags: { id: @current_tag.id })
+      @learning_records = @learning_records.joins(:tags).where(tags: { id: @current_tag.id }).distinct # 重複を排除するためにdistinctを追加
     elsif params[:date].present?
       # 学習日が指定されている場合は、その日に該当する学習記録のみを表示する
       @learning_records = @learning_records.where(study_date: params[:date])
     end
+
+    @pagy, @learning_records = pagy(@learning_records) # pagy を適用
   end
 
   def new
