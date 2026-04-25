@@ -47,18 +47,10 @@
 
         <%= link_to '今日の学習を記録する', new_learning_record_path(study_date: Date.current, theme_id: theme.id), class: "btn btn-sm btn-outline-primary" %>
         <%= link_to '学習ログ', learning_records_path(theme_id: theme.id), class: "btn btn-sm btn-outline-primary" %>
-          <button type="button" class="btn btn-sm btn-outline-secondary"
-            data-bs-toggle="collapse"
-            data-bs-target="#heatmap-<%= theme.id %>"
-            aria-expanded="false">
-            過去ログ
-          </button>
 
-          <div class="collapse mt-3" id="heatmap-<%= theme.id %>">
-              <%= render "heatmap", heatmap_data: @heatmap_data_by_theme[theme.id] || {} %>
-          </div>
-
-        <hr class="my-3">
+        <div class="mt-3">
+          <%= render "users/heatmap", heatmap_data: @heatmap_data_by_theme[theme.id] || {} %>
+        </div>
 
         <h3 class="h6 text-muted">タグ</h3>
         <% if theme.tags.present? %>
