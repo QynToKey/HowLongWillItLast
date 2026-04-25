@@ -1,0 +1,41 @@
+<% start_date = 1.year.ago.to_date %>
+<% end_date = Date.today %>
+<% grid_start = start_date - start_date.wday %>
+
+<%# 週ごとの配列を構築（月ラベル用） %>
+<% weeks = [] %>
+<% w = grid_start %>
+<% while w <= end_date %>
+  <% weeks << w %>
+  <% w += 7 %>
+<% end %>
+
+<div class="heatmap-wrapper" data-controller="heatmap">
+  <%# 月ラベル %>
+  <div class="heatmap-months">
+    <% weeks.each do |week_start| %>
+      <% week_end = [week_start + 6, end_date].min %>
+      <% month_start = (week_start..week_end).find { |d| d.day == 1 } %>
+      <div class="heatmap-month-label"><%= month_start&.strftime('%-m月') %></div>
+    <% end %>
+  </div>
+
+  <%# ヒートマップグリッド %>
+  <div class="heatmap-grid">
+    <% current_date = grid_start %>
+    <% while current_date <= end_date %>
+      <% minutes = heatmap_data[current_date] || 0 %>
+      <% level = case minutes
+                 when 0       then 0
+                 when 1..30   then 1
+                 when 31..90  then 2
+                 when 91..180 then 3
+                 else              4
+                 end %>
+      <div class="heat-cell heat-<%= level %>"
+           title="<%= current_date.strftime('%Y/%m/%d') %> : <%= (minutes / 60.0).round(1) %>h"></div>
+      <% current_date += 1 %>
+    <% end %>
+  </div>
+</div>
+<p class="text-end text-muted small mt-1">過去1年間で <%= heatmap_data.count %> 日学習しました</p>

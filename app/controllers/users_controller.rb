@@ -37,6 +37,14 @@ class UsersController < ApplicationController
         }
       end
     end
+
+    # ヒートマップ用：テーマごとに過去1年の日別学習時間（分）を集計する
+    @heatmap_data_by_theme = @learning_themes.each_with_object({}) do |theme, hash|
+      hash[theme.id] = theme.learning_records
+        .where(study_date: 1.year.ago.to_date..)
+        .group(:study_date)
+        .sum(:duration_minutes)
+    end
   end
 
   def edit
